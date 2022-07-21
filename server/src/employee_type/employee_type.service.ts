@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateEmployeeTypeDto } from './dto/create-employee_type.dto';
 import { UpdateEmployeeTypeDto } from './dto/update-employee_type.dto';
+import { EmployeeType } from './entities/employee_type.entity';
 
 @Injectable()
 export class EmployeeTypeService {
-  create(createEmployeeTypeDto: CreateEmployeeTypeDto) {
-    return 'This action adds a new employeeType';
+  constructor(
+    @InjectRepository(EmployeeType) private employeeTypeRepository: Repository<EmployeeType> 
+  ) {}
+
+  async create(createEmployeeTypeDto: CreateEmployeeTypeDto) {
+    const employee_type = this.employeeTypeRepository.create(createEmployeeTypeDto);
+    return await this.employeeTypeRepository.save(employee_type);
   }
 
-  findAll() {
-    return `This action returns all employeeType`;
+  async findAll() {
+    return await this.employeeTypeRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employeeType`;
+  async findOne(id: number) {
+    return await this.employeeTypeRepository.findOne({where: {id}});
   }
 
-  update(id: number, updateEmployeeTypeDto: UpdateEmployeeTypeDto) {
-    return `This action updates a #${id} employeeType`;
+  async update(id: number, updateEmployeeTypeDto: UpdateEmployeeTypeDto) {
+    return await this.employeeTypeRepository.update(id, updateEmployeeTypeDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employeeType`;
+  async remove(id: number) {
+    return await this.employeeTypeRepository.delete(id);
   }
 }

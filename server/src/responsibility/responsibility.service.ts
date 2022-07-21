@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateResponsibilityDto } from './dto/create-responsibility.dto';
 import { UpdateResponsibilityDto } from './dto/update-responsibility.dto';
+import { Responsibility } from './entities/responsibility.entity';
 
 @Injectable()
 export class ResponsibilityService {
-  create(createResponsibilityDto: CreateResponsibilityDto) {
-    return 'This action adds a new responsibility';
+  constructor(
+    @InjectRepository(Responsibility) private responsibilityRepository: Repository<Responsibility> 
+  ) {}
+
+  async create(createResponsibilityDto: CreateResponsibilityDto) {
+    const responsibility = this.responsibilityRepository.create(createResponsibilityDto);
+    return await this.responsibilityRepository.save(responsibility);
   }
 
-  findAll() {
-    return `This action returns all responsibility`;
+  async findAll() {
+    return await this.responsibilityRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} responsibility`;
+  async findOne(id: number) {
+    return await this.responsibilityRepository.findOne({where: {id}});
   }
 
-  update(id: number, updateResponsibilityDto: UpdateResponsibilityDto) {
-    return `This action updates a #${id} responsibility`;
+  async update(id: number, updateResponsibilityDto: UpdateResponsibilityDto) {
+    return await this.responsibilityRepository.update(id, updateResponsibilityDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} responsibility`;
+  async remove(id: number) {
+    return await this.responsibilityRepository.delete(id);
   }
 }
