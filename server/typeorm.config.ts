@@ -4,6 +4,7 @@ import { EmployeeType } from "src/employee_type/entities/employee_type.entity";
 import { Project } from "src/project/entities/project.entity";
 import { Responsibility } from "src/responsibility/entities/responsibility.entity";
 import { Team } from "src/team/entities/team.entity";
+import { User } from "src/user/entities/user.entity";
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: "mysql",
@@ -12,7 +13,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: "root",
   password: "root",
   database: "project_manager",
-  entities: [Employee, EmployeeType, Team, Project, Responsibility],
+  entities: [Employee, EmployeeType, Team, Project, Responsibility, User],
   synchronize: false,
-  migrations: ['src/migration/*{.ts,.js}'],
 };

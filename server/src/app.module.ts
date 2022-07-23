@@ -8,9 +8,11 @@ import { EmployeeTypeModule } from './employee_type/employee_type.module';
 import { TeamModule } from './team/team.module';
 import { ProjectModule } from './project/project.module';
 import { ResponsibilityModule } from './responsibility/responsibility.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), EmployeeModule, EmployeeTypeModule, TeamModule, ProjectModule, ResponsibilityModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), EmployeeModule, EmployeeTypeModule, TeamModule, ProjectModule, ResponsibilityModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

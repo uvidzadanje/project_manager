@@ -14,7 +14,7 @@ const config = new DataSource({
     database: "project_manager",
     entities: [Employee, EmployeeType, Team, Project, Responsibility],
     synchronize: false,
-    migrations: ['src/migration/*{.ts,.js}'],
+    migrations: ['migration/*{.ts,.js}'],
 })
 config.initialize();
 export default config;
