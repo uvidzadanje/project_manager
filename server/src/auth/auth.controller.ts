@@ -1,18 +1,15 @@
 import { Body, Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { LoginUserDto } from 'src/user/dto/login-user.dto';
-import { UserService } from 'src/user/user.service';
+import { CreateEmployeeDto } from 'src/employee/dto/create-employee.dto';
+import { EmployeeService } from 'src/employee/employee.service';
 import { AuthService } from './auth.service';
-import { UserPayloadDto } from './dto/user-payload.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
-import * as bcrypt from "bcrypt";
 
 @Controller('auth')
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
-        private readonly userService: UserService
+        private readonly employeeService: EmployeeService
     ) {}
 
     @UseGuards(LocalAuthGuard)
@@ -30,9 +27,9 @@ export class AuthController {
     }
 
     @Post('register')
-    async create(@Body() createUserDto: CreateUserDto)
+    async create(@Body() createEmployeeDto: CreateEmployeeDto)
     {
-        return this.userService.create(createUserDto);
+        return this.employeeService.create(createEmployeeDto);
     }
 
 }

@@ -8,6 +8,12 @@ export class Employee {
     id: number;
 
     @Column()
+    username: string;
+
+    @Column()
+    password: string;
+
+    @Column()
     firstname: string;
 
     @Column()
