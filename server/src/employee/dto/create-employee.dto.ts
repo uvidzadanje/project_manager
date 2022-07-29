@@ -4,6 +4,9 @@ export class CreateEmployeeDto {
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(20)
+    @Matches(/^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/, {
+        message: "Username is not in right format"
+    })
     username: string;
 
     @IsNotEmpty()

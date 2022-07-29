@@ -10,7 +10,8 @@ export class Team {
     @Column()
     name: string;
 
-    @ManyToMany(() => Employee)
+    @ManyToMany(() => Employee, employee => employee.teams)
+    @JoinTable()
     employees: Employee[];
 
     @ManyToMany(() => Project)

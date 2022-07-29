@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
+import { TeamEmployeeRelationDto } from './dto/team-employee-relation.dto';
 
 @Controller('team')
 export class TeamController {
@@ -22,9 +23,26 @@ export class TeamController {
     return this.teamService.findOne(+id);
   }
 
+  @Patch('employee')
+  addEmployeeToTeam(@Body() relation: TeamEmployeeRelationDto)
+  {
+    return this.teamService.addEmployeeToTeam(relation);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTeamDto: UpdateTeamDto) {
     return this.teamService.update(+id, updateTeamDto);
+  }
+
+  @Delete(":id/employee/:employee_id")
+  removeEmployeeFromTeam(@Param('id') id: string, @Param('employee_id') employee_id: string)
+  {
+    const relation: TeamEmployeeRelationDto = {
+      team_id: +id,
+      employee_id: +employee_id
+    }
+
+    return this.teamService.removeEmployeFromTeam(relation);
   }
 
   @Delete(':id')

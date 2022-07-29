@@ -22,7 +22,6 @@ export class Employee {
     @ManyToOne(() => EmployeeType, (employeeType) => employeeType.employees)
     type: EmployeeType;
 
-    @ManyToMany(() => Team)
-    @JoinTable()
+    @ManyToMany(() => Team, team => team.employees)
     teams: Team[];
 }

@@ -11,7 +11,7 @@ import { EmployeeTypeService } from 'src/employee_type/employee_type.service';
 export class EmployeeService {
   constructor(
     @InjectRepository(Employee) private employeeRepository: Repository<Employee>,
-    private employeeTypeService: EmployeeTypeService
+    private employeeTypeService: EmployeeTypeService,
     ) { }
 
   async create(createEmployeeDto: CreateEmployeeDto) {
@@ -31,15 +31,39 @@ export class EmployeeService {
   }
 
   async findOne(id: number) {
-    return await this.employeeRepository.findOne({where: {id}});
+    return await this.employeeRepository.findOne({
+      where: {
+        id
+      },
+      relations: ["type"]
+    });
   }
 
   async findByUsername(username: string)
   {
-    return await this.employeeRepository.findOne({where: {username}});
+    return await this.employeeRepository.findOne({
+      where: {
+        username
+      }
+    });
   }
 
   async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+    if(updateEmployeeDto.password) {
+      const saltRounds = 10;
+      updateEmployeeDto.password = await bcrypt.hash(updateEmployeeDto.password, saltRounds);
+    }
+
+    const employee_type_id = updateEmployeeDto.employee_type_id;
+    
+    delete updateEmployeeDto["employee_type_id"];
+
+    if(employee_type_id)
+    {
+      const type = await this.employeeTypeService.findOne(employee_type_id);
+      return await this.employeeRepository.update(id, {...updateEmployeeDto, type});
+    }
+
     return await this.employeeRepository.update(id, updateEmployeeDto);
   }
 
