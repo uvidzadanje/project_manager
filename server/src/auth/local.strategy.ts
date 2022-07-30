@@ -10,9 +10,9 @@ export class LocalStategy extends PassportStrategy(Strategy) {
         super();
     }
 
-    async validate(loginPayload: LoginPayloadDto)
+    async validate(username: string, password: string)
     {
-        const user = await this.authService.validateUser(loginPayload);
+        const user = await this.authService.validateUser({username, password});
 
         if(!user)
         {

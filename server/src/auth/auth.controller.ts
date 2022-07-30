@@ -4,6 +4,8 @@ import { EmployeeService } from 'src/employee/employee.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
+import { Roles } from './roles.decorator';
+import { RolesGuard } from './roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +25,9 @@ export class AuthController {
     @Get('me')
     async getUserInfo(@Request() req)
     {
-        return req.user;
+        const user = await this.employeeService.findOne(req.user.id);
+        const {password, ...result} = user;
+        return result;
     }
 
     @Post('register')
