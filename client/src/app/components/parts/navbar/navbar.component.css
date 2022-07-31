@@ -1,0 +1,20 @@
+.mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+}
+
+@media only screen and (min-width: 769px) {
+  .mat-icon-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .mat-toolbar-row a {
+    display: none;
+  }
+  .mat-nav-list {
+    width: 100vw;
+  }
+}

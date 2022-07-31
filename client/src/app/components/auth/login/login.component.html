@@ -1,0 +1,15 @@
+<div id="wrapp">
+  <h1>Prijavite se</h1>
+  <mat-form-field appearance="legacy">
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Username" [(ngModel)]="loginPayload.username">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" [(ngModel)]="loginPayload.password" type="password">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" (click)="login()">Prijavi se</button>
+  <p style="margin-top: 20px;">Nemate nalog? <span><a [routerLink]="'/register'">Registrujte se</a></span></p>
+</div>

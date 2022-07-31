@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <h1>Project Manager</h1>
+    <span class="menu-spacer"></span>
+    <a mat-button [routerLink]="'/'"> Početna </a>
+    <a mat-button [routerLink]="'/register'" style="margin-left: auto;"> Registruj se </a>
+    <a mat-button [routerLink]="'/login'"> Prijavi se </a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-button [routerLink]="'/'"> Početna </a>
+      <a mat-button [routerLink]="'/register'"> Registruj se </a>
+      <a mat-button [routerLink]="'/login'"> Prijavi se </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

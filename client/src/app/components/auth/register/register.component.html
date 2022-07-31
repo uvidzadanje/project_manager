@@ -1,0 +1,33 @@
+<div id="wrapp">
+  <h1>Registrujte se</h1>
+  <mat-form-field appearance="legacy">
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Username" [(ngModel)]="createEmployeePayload.username">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" [(ngModel)]="createEmployeePayload.password">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Ime</mat-label>
+    <input matInput placeholder="Ime" [(ngModel)]="createEmployeePayload.firstname">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Prezime</mat-label>
+    <input matInput placeholder="Prezime" [(ngModel)]="createEmployeePayload.lastname">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Tip zaposlenog</mat-label>
+    <mat-select [(ngModel)]="createEmployeePayload.employee_type_id">
+      <mat-option *ngFor="let employeeType of employeeTypes | async" [value]="employeeType.id">
+        {{ employeeType.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" (click)="register()">Registruj se</button>
+</div>
