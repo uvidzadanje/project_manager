@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
 import { LoginPayloadDto } from 'src/app/dto/auth/login-payload.dto';
-import { AuthService } from 'src/app/services/auth.service';
+import { login } from 'src/app/state/auth/auth.action';
+import { Observable, of } from 'rxjs';
+import { selectAuthError } from 'src/app/state/auth/auth.selector';
 
 @Component({
   selector: 'app-login',
@@ -12,17 +16,20 @@ export class LoginComponent implements OnInit {
     username: "",
     password: ""
   }
+
+  error$: Observable<string> = of("");
+
   constructor(
-    private authService: AuthService
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
+    this.error$ = this.store.select(selectAuthError);
   }
 
   login()
   {
-    this.authService.login(this.loginPayload).subscribe((data) => localStorage.setItem("token", (data as {access_token: string}).access_token));
-
+    this.store.dispatch(login({ payload: {...this.loginPayload} }));
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CreateEmployeeDto } from 'src/app/dto/employee/employee.dto';
 import { EmployeeType } from 'src/app/models/employee-type';
+import { AuthService } from 'src/app/services/auth.service';
 import { EmployeeTypeService } from 'src/app/services/employee-type.service';
 
 @Component({
@@ -16,12 +17,13 @@ export class RegisterComponent implements OnInit {
     password: "",
     firstname: "",
     lastname: "",
-    employee_type_id: 0
+    employee_type_id: NaN
   };
 
   title = 'Register';
   constructor(
-    private employeeTypeService: EmployeeTypeService
+    private employeeTypeService: EmployeeTypeService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +32,9 @@ export class RegisterComponent implements OnInit {
 
   register()
   {
-
+    this.authService.register(this.createEmployeePayload).subscribe({
+      error: (response) => alert(response.error.message.join("\n"))
+    });
   }
 
 }

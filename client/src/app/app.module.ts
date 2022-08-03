@@ -20,6 +20,11 @@ import { FooterComponent } from './components/parts/footer/footer.component';
 import { RegisterComponent } from './components/auth/register/register.component'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './state/auth/employee.effects';
+import { AppState } from './app.state';
+import { authReducer } from './state/auth/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,13 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forRoot<AppState>({
+      auth: authReducer
+    }),
+    EffectsModule.forRoot([
+      AuthEffects
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
