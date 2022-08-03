@@ -29,8 +29,19 @@ export class AuthService {
     {
         const payload = { username: user.username, id: user.id };
 
+        const {password, ...employee} = await this.employeeService.findOne(payload.id);
+
         return {
-            access_token: this.jwtService.sign(payload)
+            access_token: this.jwtService.sign(payload),
+            employee
         }
+    }
+
+    async getLoggedEmployeeInfo(id: number)
+    {
+        const user = await this.employeeService.findOne(id);
+        const {password, ...result} = user;
+
+        return result;
     }
 }

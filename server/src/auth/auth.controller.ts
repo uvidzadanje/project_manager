@@ -25,9 +25,7 @@ export class AuthController {
     @Get('me')
     async getUserInfo(@Request() req)
     {
-        const user = await this.employeeService.findOne(req.user.id);
-        const {password, ...result} = user;
-        return result;
+        return await this.authService.getLoggedEmployeeInfo(req.user.id);
     }
 
     @Post('register')
