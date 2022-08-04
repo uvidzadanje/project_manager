@@ -22,9 +22,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './state/auth/employee.effects';
+import { AuthEffects } from './state/auth/auth.effects';
 import { AppState } from './app.state';
 import { authReducer } from './state/auth/auth.reducer';
+import { MainDashboardComponent } from './components/dashboard/main-dashboard/main-dashboard.component';
+import { ManagerDashboardComponent } from './components/dashboard/manager-dashboard/manager-dashboard.component';
+import { EmployeeDashboardComponent } from './components/dashboard/employee-dashboard/employee-dashboard.component';
+import { DashboardManagerSidenavComponent } from './components/dashboard/parts/dashboard-manager-sidenav/dashboard-manager-sidenav.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { authReducer } from './state/auth/auth.reducer';
     LoginComponent,
     NavbarComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    MainDashboardComponent,
+    ManagerDashboardComponent,
+    EmployeeDashboardComponent,
+    DashboardManagerSidenavComponent
   ],
   imports: [
     BrowserModule,

@@ -18,3 +18,8 @@
     width: 100vw;
   }
 }
+
+.navbar-items {
+  display:flex;
+  flex: 1;
+}

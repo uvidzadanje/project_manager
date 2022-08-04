@@ -11,14 +11,31 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService
   ) {}
+
   login = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
       mergeMap((data) =>
         this.authService.login(data.payload)
         .pipe(
-          map((data) => AuthActions.loginSuccess(data as {access_token: string, employee: Employee})),
+          map((data) => {
+            const result = data as {access_token: string, employee: Employee};
+            localStorage.setItem("token", result.access_token);
+            return AuthActions.loginSuccess(result)
+          }),
           catchError((response) => of(AuthActions.authError({ error: response.error.message})))
+        )
+      )
+    )
+  )
+
+  getAuthInfoByToken = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.getAuthInfo),
+      mergeMap((data) =>
+        this.authService.getAuthInfoByToken(data.accessToken)
+        .pipe(
+          map((value) => AuthActions.getAuthInfoSuccess({accessToken: data.accessToken, employee: value as Employee}))
         )
       )
     )

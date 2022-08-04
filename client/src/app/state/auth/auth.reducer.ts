@@ -1,4 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
+import { Action } from "rxjs/internal/scheduler/Action";
 import { Employee } from "src/app/models/employee";
 import * as Actions from "src/app/state/auth/auth.action";
 
@@ -25,12 +26,20 @@ export const authReducer = createReducer(
   ),
   on(Actions.logout, (state, {}) =>
     {
-      return { ...state, isLoggedIn: false, accessToken: "", employee: null, authError: ""}
+      return { ...state, isLoggedIn: false, accessToken: ""}
     }
   ),
   on(Actions.authError, (state, { error }) =>
     {
       return { ...state, authError: error}
     }
-  )
+  ),
+  on(Actions.getAuthInfoSuccess, (state, {accessToken, employee}) => {
+    return {
+      ...state,
+      accessToken,
+      employee,
+      isLoggedIn: true
+    }
+  })
 )

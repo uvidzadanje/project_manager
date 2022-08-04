@@ -5,18 +5,26 @@
     </button>
     <h1>Project Manager</h1>
     <span class="menu-spacer"></span>
-    <a mat-button [routerLink]="'/'"> Početna </a>
-    <a mat-button [routerLink]="'/register'" style="margin-left: auto;"> Registruj se </a>
-    <a mat-button [routerLink]="'/login'"> Prijavi se </a>
+    <div class="navbar-items" *ngIf="!((authInfo$ | async)?.isLoggedIn)">
+      <a mat-button [routerLink]="'/'"> Početna </a>
+      <a mat-button [routerLink]="'/register'" style="margin-left: auto;"> Registruj se </a>
+      <a mat-button [routerLink]="'/login'"> Prijavi se </a>
+    </div>
+    <div class="navbar-items" *ngIf="(authInfo$ | async)?.isLoggedIn">
+      <a mat-button style="margin-left: auto;" (click)="logout()"> Logout </a>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="!((authInfo$ | async)?.isLoggedIn)">
       <a mat-button [routerLink]="'/'"> Početna </a>
       <a mat-button [routerLink]="'/register'"> Registruj se </a>
       <a mat-button [routerLink]="'/login'"> Prijavi se </a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="(authInfo$ | async)?.isLoggedIn">
+      <a mat-button> Logout </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

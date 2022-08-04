@@ -4,7 +4,9 @@ import { AppState } from 'src/app/app.state';
 import { LoginPayloadDto } from 'src/app/dto/auth/login-payload.dto';
 import { login } from 'src/app/state/auth/auth.action';
 import { Observable, of } from 'rxjs';
-import { selectAuthError } from 'src/app/state/auth/auth.selector';
+import { selectAuthError, selectAuthInfo } from 'src/app/state/auth/auth.selector';
+import { Employee } from 'src/app/models/employee';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +20,29 @@ export class LoginComponent implements OnInit {
   }
 
   error$: Observable<string> = of("");
+  authInfo$: Observable<{
+    accessToken: string,
+    isLoggedIn: boolean,
+    employee: Employee | null
+  }> = of({
+    accessToken: "",
+    isLoggedIn: false,
+    employee: null
+  });
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+
     this.error$ = this.store.select(selectAuthError);
+    this.authInfo$ = this.store.select(selectAuthInfo);
+    this.authInfo$.subscribe((data) => {
+      if(data.isLoggedIn) this.router.navigate(["/dashboard"]);
+    });
+
   }
 
   login()

@@ -21,3 +21,13 @@ export const authError = createAction(
   props<{ error: string }>()
 )
 
+export const getAuthInfo = createAction(
+  "Login info",
+  props<{ accessToken: string}>()
+)
+
+export const getAuthInfoSuccess = createAction(
+  "Login info success",
+  props<{ accessToken: string, employee: Employee }>()
+)
+

@@ -7,5 +7,5 @@ export interface Employee
   password?: string;
   firstname: string;
   lastname: string;
-  employeeType?: EmployeeType
+  type?: EmployeeType
 }

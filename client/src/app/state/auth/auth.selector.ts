@@ -10,3 +10,11 @@ export const selectAuthError = createSelector(
   authSelectorFeature,
   (auth) => auth.authError
 )
+
+export const selectAuthInfo = createSelector(
+  authSelectorFeature,
+  (auth) => {
+    const {authError, ...authInfo} = auth;
+    return authInfo;
+  }
+)
