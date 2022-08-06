@@ -1,4 +1,3 @@
-<manager-dashboard *ngIf="(authInfo$ | async)?.employee?.type?.name?.toLocaleLowerCase() === 'project manager'; else elseBlock"></manager-dashboard>
-<ng-template #elseBlock>
-  <employee-dashboard></employee-dashboard>
-</ng-template>
+<div id="wrapp" style="justify-content: flex-start;">
+  <dashboard-manager-navbar [authType]="(authInfo$ | async)?.employee?.type!" style="width: 100%;"></dashboard-manager-navbar>
+</div>

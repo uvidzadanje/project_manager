@@ -1,5 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { LoginPayloadDto } from "src/app/dto/auth/login-payload.dto";
 import { Employee } from "src/app/models/employee";
 
 export const loadEmployees = createAction(

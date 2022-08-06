@@ -13,6 +13,9 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { LoginComponent } from './components/auth/login/login.component';
 import { NavbarComponent } from './components/parts/navbar/navbar.component';
@@ -29,6 +32,12 @@ import { MainDashboardComponent } from './components/dashboard/main-dashboard/ma
 import { ManagerDashboardComponent } from './components/dashboard/manager-dashboard/manager-dashboard.component';
 import { EmployeeDashboardComponent } from './components/dashboard/employee-dashboard/employee-dashboard.component';
 import { DashboardManagerSidenavComponent } from './components/dashboard/parts/dashboard-manager-sidenav/dashboard-manager-sidenav.component';
+import { DashboardManagerNavbarComponent } from './components/dashboard/parts/dashboard-manager-navbar/dashboard-manager-navbar.component';
+import { ProjectsDashboardComponent } from './components/dashboard/projects-dashboard/projects-dashboard.component';
+import { TeamsDashboardComponent } from './components/dashboard/teams-dashboard/teams-dashboard.component';
+import { teamReducer } from './state/team/team.reducer';
+import { TeamEffects } from './state/team/team.effects';
+import { AddTeamFormComponent } from './components/dashboard/parts/add-team-form/add-team-form.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +49,11 @@ import { DashboardManagerSidenavComponent } from './components/dashboard/parts/d
     MainDashboardComponent,
     ManagerDashboardComponent,
     EmployeeDashboardComponent,
-    DashboardManagerSidenavComponent
+    DashboardManagerSidenavComponent,
+    DashboardManagerNavbarComponent,
+    ProjectsDashboardComponent,
+    TeamsDashboardComponent,
+    AddTeamFormComponent
   ],
   imports: [
     BrowserModule,
@@ -54,13 +67,18 @@ import { DashboardManagerSidenavComponent } from './components/dashboard/parts/d
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonToggleModule,
     HttpClientModule,
     FormsModule,
     StoreModule.forRoot<AppState>({
-      auth: authReducer
+      auth: authReducer,
+      teams: teamReducer
     }),
     EffectsModule.forRoot([
-      AuthEffects
+      AuthEffects,
+      TeamEffects
     ])
   ],
   providers: [],

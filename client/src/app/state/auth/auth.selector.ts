@@ -18,3 +18,8 @@ export const selectAuthInfo = createSelector(
     return authInfo;
   }
 )
+
+export const selectAuthToken = createSelector(
+  selectAuthInfo,
+  (authInfo) => authInfo.accessToken
+)

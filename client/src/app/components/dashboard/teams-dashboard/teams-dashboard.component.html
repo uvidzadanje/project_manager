@@ -1,0 +1,22 @@
+<div class="expansion-panel">
+  <add-team-form [token]="accessToken">
+  </add-team-form>
+</div>
+<mat-expansion-panel hideToggle *ngFor="let team of (teams$ | async)" class="expansion-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{team.name}}
+    </mat-panel-title>
+    <button mat-icon-button>
+      <mat-icon aria-hidden="false" [color]="'primary'">edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="remove(team.id)">
+      <mat-icon aria-hidden="false" [color]="'warn'">close</mat-icon>
+    </button>
+  </mat-expansion-panel-header>
+  <div *ngFor="let employee of team.employees">
+    <p>{{employee.firstname}}</p>
+    <p>{{employee.lastname}}</p>
+    <p>{{employee.type?.name}}</p>
+  </div>
+</mat-expansion-panel>
