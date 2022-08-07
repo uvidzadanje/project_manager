@@ -38,6 +38,9 @@ import { TeamsDashboardComponent } from './components/dashboard/teams-dashboard/
 import { teamReducer } from './state/team/team.reducer';
 import { TeamEffects } from './state/team/team.effects';
 import { AddTeamFormComponent } from './components/dashboard/parts/add-team-form/add-team-form.component';
+import { projectReducer } from './state/project/project.reducer';
+import { AddProjectFormComponent } from './components/dashboard/parts/add-project-form/add-project-form.component';
+import { ProjectEffects } from './state/project/project.effects';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,8 @@ import { AddTeamFormComponent } from './components/dashboard/parts/add-team-form
     DashboardManagerNavbarComponent,
     ProjectsDashboardComponent,
     TeamsDashboardComponent,
-    AddTeamFormComponent
+    AddTeamFormComponent,
+    AddProjectFormComponent
   ],
   imports: [
     BrowserModule,
@@ -74,11 +78,13 @@ import { AddTeamFormComponent } from './components/dashboard/parts/add-team-form
     FormsModule,
     StoreModule.forRoot<AppState>({
       auth: authReducer,
-      teams: teamReducer
+      teams: teamReducer,
+      projects: projectReducer
     }),
     EffectsModule.forRoot([
       AuthEffects,
-      TeamEffects
+      TeamEffects,
+      ProjectEffects
     ])
   ],
   providers: [],

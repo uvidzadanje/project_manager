@@ -24,7 +24,7 @@
       <a mat-button [routerLink]="'/login'"> Prijavi se </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="(authInfo$ | async)?.isLoggedIn">
-      <a mat-button> Logout </a>
+      <a mat-button (click)="logout()"> Logout </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -25,7 +25,7 @@ export class AddTeamFormComponent implements OnInit {
 
   addTeamForm()
   {
-    this.store.dispatch(addTeam({token: this.token, team: this.team}))
+    this.store.dispatch(addTeam({token: this.token, team: {...this.team}}))
   }
 
 }
