@@ -43,7 +43,7 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.update({token: data.token, id: data.id, payload: data.data})
         .pipe(
-          map((data) => ProjectActions.updateProjectSuccess({project: data as Project}))
+          map(() => ProjectActions.updateProjectSuccess({id: data.id, changes: data.data}))
         )
       )
     )

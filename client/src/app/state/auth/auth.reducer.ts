@@ -41,5 +41,11 @@ export const authReducer = createReducer(
       employee,
       isLoggedIn: true
     }
+  }),
+  on(Actions.updateEmployeeInfoSuccess, (state, {data}) => {
+    return {
+      ...state,
+      ...data
+    }
   })
 )

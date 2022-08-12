@@ -3,13 +3,15 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { Employee } from "src/app/models/employee";
 import { AuthService } from "src/app/services/auth.service";
+import { EmployeeService } from "src/app/services/employee.service";
 import * as AuthActions from "src/app/state/auth/auth.action"
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private employeeService: EmployeeService
   ) {}
 
   login = createEffect(() =>
@@ -36,6 +38,18 @@ export class AuthEffects {
         this.authService.getAuthInfoByToken(data.accessToken)
         .pipe(
           map((value) => AuthActions.getAuthInfoSuccess({accessToken: data.accessToken, employee: value as Employee}))
+        )
+      )
+    )
+  )
+
+  updateEmployeeInfo = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.updateEmployeeInfo),
+      mergeMap((data) =>
+        this.employeeService.update({id: data.id, changes: data.changes, accessToken: data.accessToken})
+        .pipe(
+          map(() => AuthActions.updateEmployeeInfoSuccess({data: data.changes}))
         )
       )
     )

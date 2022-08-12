@@ -1,0 +1,24 @@
+<div id="wrapp" *ngIf="employeeInfo">
+  <h1>Account settings</h1>
+  <mat-form-field appearance="legacy">
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Username" [(ngModel)]="employeeInfo.username">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="Password" [(ngModel)]="employeeInfo.password" type="password">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Fistname</mat-label>
+    <input matInput placeholder="Fistname" [(ngModel)]="employeeInfo.firstname">
+  </mat-form-field>
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Lastname</mat-label>
+    <input matInput placeholder="Lastname" [(ngModel)]="employeeInfo.lastname">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" (click)="update()">Save changes</button>
+</div>

@@ -14,3 +14,14 @@ export const selectTeams = createSelector(
   .filter((team) => !!team)
   .map((team) => <Team>team)
 )
+
+export const selectTeamId = createSelector(
+  teamSelectorFeature,
+  (teams) => teams.selectedTeamId
+)
+
+export const selectSelectedTeam = createSelector(
+  teamSelectorFeature,
+  selectTeamId,
+  (teams, selectedTeamId) => teams.entities[selectedTeamId]
+)

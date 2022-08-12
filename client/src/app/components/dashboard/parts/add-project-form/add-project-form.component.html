@@ -6,14 +6,16 @@
       </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-form-field appearance="legacy">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Name" [(ngModel)]="project.name">
-  </mat-form-field>
-  <mat-form-field ppearance="legacy">
-    <mat-label>Deadline</mat-label>
-    <input matInput type="datetime-local" placeholder="Deadline" [(ngModel)]="project.deadline_timestamp">
-  </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" (click)="addProjectForm()">Add</button>
+  <div style="display: flex; flex-direction: column;">
+    <mat-form-field appearance="legacy">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" [(ngModel)]="project.name">
+    </mat-form-field>
+    <mat-form-field ppearance="legacy">
+      <mat-label>Deadline</mat-label>
+      <input matInput type="datetime-local" placeholder="Deadline" [(ngModel)]="project.deadline_timestamp">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click)="addProjectForm()">Add</button>
+  </div>
 </mat-expansion-panel>
 

@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Edit team</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="legacy">
+    <mat-label>Name:</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+  <mat-form-field ppearance="legacy">
+    <mat-label>Deadline</mat-label>
+    <input matInput type="datetime-local" placeholder="Deadline" [(ngModel)]="data.deadline_timestamp">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="updateProject()" color="primary">Update</button>
+</div>

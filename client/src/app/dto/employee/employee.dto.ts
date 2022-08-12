@@ -5,3 +5,5 @@ export interface CreateEmployeeDto {
     lastname: string;
     employee_type_id: number;
 }
+
+export interface UpdateEmployeeDto extends Partial<CreateEmployeeDto> { }

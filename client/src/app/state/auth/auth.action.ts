@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { LoginPayloadDto } from "src/app/dto/auth/login-payload.dto";
+import { UpdateEmployeeDto } from "src/app/dto/employee/employee.dto";
 import { Employee } from "src/app/models/employee";
 
 export const login = createAction(
@@ -29,5 +30,15 @@ export const getAuthInfo = createAction(
 export const getAuthInfoSuccess = createAction(
   "Login info success",
   props<{ accessToken: string, employee: Employee }>()
+)
+
+export const updateEmployeeInfo = createAction(
+  "Update employee info",
+  props<{ accessToken: string, id: number, changes: UpdateEmployeeDto }>()
+)
+
+export const updateEmployeeInfoSuccess = createAction(
+  "Update employee info success",
+  props<{ data: UpdateEmployeeDto }>()
 )
 

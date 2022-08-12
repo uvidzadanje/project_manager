@@ -16,6 +16,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LoginComponent } from './components/auth/login/login.component';
 import { NavbarComponent } from './components/parts/navbar/navbar.component';
@@ -41,6 +43,9 @@ import { AddTeamFormComponent } from './components/dashboard/parts/add-team-form
 import { projectReducer } from './state/project/project.reducer';
 import { AddProjectFormComponent } from './components/dashboard/parts/add-project-form/add-project-form.component';
 import { ProjectEffects } from './state/project/project.effects';
+import { UpdateTeamDialogComponent } from './components/dashboard/parts/update-team-dialog/update-team-dialog.component';
+import { UpdateProjectDialogComponent } from './components/dashboard/parts/update-project-dialog/update-project-dialog.component';
+import { AccountSettingsComponent } from './components/auth/account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +62,10 @@ import { ProjectEffects } from './state/project/project.effects';
     ProjectsDashboardComponent,
     TeamsDashboardComponent,
     AddTeamFormComponent,
-    AddProjectFormComponent
+    AddProjectFormComponent,
+    UpdateTeamDialogComponent,
+    UpdateProjectDialogComponent,
+    AccountSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +82,8 @@ import { ProjectEffects } from './state/project/project.effects';
     MatTabsModule,
     MatExpansionModule,
     MatButtonToggleModule,
+    MatDialogModule,
+    MatMenuModule,
     HttpClientModule,
     FormsModule,
     StoreModule.forRoot<AppState>({

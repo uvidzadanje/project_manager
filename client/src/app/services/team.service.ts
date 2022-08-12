@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CreateTeamDto } from '../dto/team/team.dto';
+import { CreateTeamDto, UpdateTeamDto } from '../dto/team/team.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class TeamService {
     })
   }
 
-  update(data: {token: string, team: CreateTeamDto, id: number})
+  update(data: {token: string, team: UpdateTeamDto, id: number})
   {
     const {token, team, id} = data;
     return this.httpClient.patch(environment.api_url+"/team/"+id, team, {

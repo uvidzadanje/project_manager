@@ -23,3 +23,8 @@ export const selectAuthToken = createSelector(
   selectAuthInfo,
   (authInfo) => authInfo.accessToken
 )
+
+export const selectEmployeeInfo = createSelector(
+  selectAuthInfo,
+  (authInfo) => authInfo.employee!
+)

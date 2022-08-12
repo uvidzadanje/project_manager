@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { CreateTeamDto } from "src/app/dto/team/team.dto";
+import { CreateTeamDto, UpdateTeamDto } from "src/app/dto/team/team.dto";
 import { Team } from "src/app/models/team";
 
 export const loadTeams = createAction(
@@ -24,12 +24,12 @@ export const addTeamSuccess = createAction(
 
 export const updateTeam = createAction(
   "Update team",
-  props<{ token:string,  team: CreateTeamDto, id: number }>()
+  props<{ token:string,  team: UpdateTeamDto, id: number }>()
 )
 
 export const updateTeamSuccess = createAction(
   "Update team success",
-  props<{team: Team}>()
+  props<{id: number, changes: UpdateTeamDto}>()
 )
 
 export const deleteTeam = createAction(
@@ -39,5 +39,10 @@ export const deleteTeam = createAction(
 
 export const deleteTeamSuccess = createAction(
   "Delete team success",
+  props<{id: number}>()
+)
+
+export const setSelectTeamId = createAction(
+  "Select team ID",
   props<{id: number}>()
 )

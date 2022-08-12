@@ -1,23 +1,25 @@
 <div class="expansion-panel">
   <add-project-form [accessToken]="accessToken"></add-project-form>
 </div>
-<mat-expansion-panel hideToggle *ngFor="let project of (projects$ | async)" class="expansion-panel">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{project.name}}
-    </mat-panel-title>
-    <mat-panel-description>
-      {{project.deadline_timestamp}}
-    </mat-panel-description>
-    <button mat-icon-button>
-      <mat-icon aria-hidden="false" [color]="'primary'">edit</mat-icon>
-    </button>
-    <button mat-icon-button (click)="remove(project.id)">
-      <mat-icon aria-hidden="false" [color]="'warn'">close</mat-icon>
-    </button>
-  </mat-expansion-panel-header>
-  <div *ngFor="let team of project.teams">
-    <p>{{team.name}}</p>
-  </div>
-</mat-expansion-panel>
+<div class="expansion-panel" *ngFor="let project of (projects$ | async)">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{project.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{project.deadline_timestamp}}
+      </mat-panel-description>
+      <button mat-icon-button (click)="editProject(project.id)">
+        <mat-icon aria-hidden="false" [color]="'primary'">edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="remove(project.id)">
+        <mat-icon aria-hidden="false" [color]="'warn'">close</mat-icon>
+      </button>
+    </mat-expansion-panel-header>
+    <div *ngFor="let team of project.teams">
+      <p>{{team.name}}</p>
+    </div>
+  </mat-expansion-panel>
+</div>
 

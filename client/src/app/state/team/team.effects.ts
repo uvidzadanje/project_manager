@@ -42,7 +42,7 @@ export class TeamEffects {
       mergeMap((data) =>
         this.teamService.update(data)
         .pipe(
-          map((data) => TeamActions.updateTeamSuccess({team: data as Team}))
+          map(() => TeamActions.updateTeamSuccess({id: data.id, changes: data.team}))
         )
       )
     )

@@ -4,12 +4,14 @@ import { Team } from "src/app/models/team";
 import * as Actions from "./team.action";
 
 export interface TeamState extends EntityState<Team> {
-
+  selectedTeamId: number
 }
 
 const adapter = createEntityAdapter<Team>();
 
-export const initialState: TeamState = adapter.getInitialState();
+export const initialState: TeamState = adapter.getInitialState({
+  selectedTeamId: 0,
+});
 
 export const teamReducer = createReducer(
   initialState,
@@ -19,9 +21,8 @@ export const teamReducer = createReducer(
   on(Actions.addTeamSuccess, (state, {team}) =>
     adapter.addOne(team, state)
   ),
-  on(Actions.updateTeamSuccess, (state, {team}) =>
+  on(Actions.updateTeamSuccess, (state, {id, changes}) =>
     {
-      const {id, ...changes} = team;
       return adapter.updateOne(
         {
           id,
@@ -33,5 +34,11 @@ export const teamReducer = createReducer(
   ),
   on(Actions.deleteTeamSuccess, (state, {id}) =>
     adapter.removeOne(id, state)
-  )
+  ),
+  on(Actions.setSelectTeamId, (state, {id}) => {
+    return {
+      ...state,
+      selectedTeamId: id
+    }
+  })
 )

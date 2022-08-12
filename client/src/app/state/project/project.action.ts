@@ -29,7 +29,7 @@ export const updateProject = createAction(
 
 export const updateProjectSuccess = createAction(
   "Update project succes",
-  props<{project: Project}>()
+  props<{id: number, changes: UpdateProjectDto}>()
 )
 
 export const deleteProject = createAction(
@@ -39,5 +39,10 @@ export const deleteProject = createAction(
 
 export const deleteProjectSuccess = createAction(
   "Delete project success",
+  props<{id: number}>()
+)
+
+export const setSelectedProjectId = createAction(
+  "Set selected project ID",
   props<{id: number}>()
 )

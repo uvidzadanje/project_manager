@@ -14,3 +14,14 @@ export const selectProjects = createSelector(
   .filter((project) => !!project)
   .map((project) => <Project>project)
 )
+
+export const selectSelectedProjectId = createSelector(
+  projectSelectorFeature,
+  (projects) => projects.selectedProjectId
+)
+
+export const selectSelectedProject = createSelector(
+  projectSelectorFeature,
+  selectSelectedProjectId,
+  (projects, selectedProjectId) => projects.entities[selectedProjectId]
+)

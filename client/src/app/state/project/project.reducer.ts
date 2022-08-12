@@ -4,12 +4,14 @@ import { Project } from "src/app/models/project";
 import * as Actions from "./project.action";
 
 export interface ProjectState extends EntityState<Project> {
-
+  selectedProjectId: number;
 }
 
 const adapter = createEntityAdapter<Project>();
 
-export const initialState = adapter.getInitialState();
+export const initialState = adapter.getInitialState({
+  selectedProjectId: 0
+});
 
 export const projectReducer = createReducer(
   initialState,
@@ -19,8 +21,7 @@ export const projectReducer = createReducer(
   on(Actions.addProjectSuccess, (state, {project}) =>
     adapter.addOne(project, state)
   ),
-  on(Actions.updateProjectSuccess, (state, {project}) => {
-    const {id, ...changes} = project;
+  on(Actions.updateProjectSuccess, (state, {id, changes}) => {
     return adapter.updateOne(
       {
         id,
@@ -32,5 +33,11 @@ export const projectReducer = createReducer(
   ),
   on(Actions.deleteProjectSuccess, (state, {id}) =>
     adapter.removeOne(id, state)
-  )
+  ),
+  on(Actions.setSelectedProjectId, (state, {id}) => {
+    return {
+      ...state,
+      selectedProjectId: id
+    }
+  })
 )

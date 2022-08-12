@@ -11,7 +11,12 @@
       <a mat-button [routerLink]="'/login'"> Prijavi se </a>
     </div>
     <div class="navbar-items" *ngIf="(authInfo$ | async)?.isLoggedIn">
-      <a mat-button style="margin-left: auto;" (click)="logout()"> Logout </a>
+      <button mat-button [matMenuTriggerFor]="menu" style="margin-left: auto;">{{(authInfo$ | async)?.employee?.firstname}} {{(authInfo$ | async)?.employee?.lastname}}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="'/settings'">Account settings</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()"> Logout </button>
+      </mat-menu>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -24,6 +29,7 @@
       <a mat-button [routerLink]="'/login'"> Prijavi se </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="(authInfo$ | async)?.isLoggedIn">
+      <a mat-button routerLink="'/settings'">Account settings</a>
       <a mat-button (click)="logout()"> Logout </a>
     </mat-nav-list>
   </mat-sidenav>
