@@ -20,7 +20,9 @@ export class ProjectService {
   }
 
   async findAll() {
-    return await this.projectRepository.find();
+    return await this.projectRepository.find({
+      relations: ["teams"]
+    });
   }
 
   async findOne(id: number) {

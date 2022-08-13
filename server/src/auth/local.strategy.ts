@@ -16,7 +16,7 @@ export class LocalStategy extends PassportStrategy(Strategy) {
 
         if(!user)
         {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("Nevalidni podaci");
         }
 
         return user;

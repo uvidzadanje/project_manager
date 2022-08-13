@@ -20,7 +20,21 @@ export class TeamService {
   }
 
   async findAll() {
-    return await this.teamRepository.find();
+    return await this.teamRepository.find({
+      relations: ["employees", "employees.type"],
+      select: {
+        employees: {
+          id: true,
+          firstname: true,
+          lastname: true,
+          username: true,
+          type: {
+            id: true,
+            name: true
+          }
+        },
+      }
+    });
   }
 
   async findOne(id: number) {
