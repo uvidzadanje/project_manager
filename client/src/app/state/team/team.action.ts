@@ -29,7 +29,7 @@ export const updateTeam = createAction(
 
 export const updateTeamSuccess = createAction(
   "Update team success",
-  props<{id: number, changes: UpdateTeamDto}>()
+  props<{id: number, changes: UpdateTeamDto | Team}>()
 )
 
 export const deleteTeam = createAction(
@@ -46,3 +46,15 @@ export const setSelectTeamId = createAction(
   "Select team ID",
   props<{id: number}>()
 )
+
+export const loadMoreInfoForTeam = createAction(
+  "Load more info for selected team",
+  props<{id: number, token: string}>()
+)
+
+export const setItem = createAction(
+  "Create",
+  props<{team: Team}>()
+)
+
+

@@ -1,0 +1,23 @@
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{project.name}}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{project.deadline_timestamp}}
+    </mat-panel-description>
+    <button mat-icon-button (click)="editProject()">
+      <mat-icon aria-hidden="false" [color]="'primary'">edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="remove()">
+      <mat-icon aria-hidden="false" [color]="'warn'">close</mat-icon>
+    </button>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <mat-divider></mat-divider>
+    <div *ngFor="let team of project.teams">
+      <span>{{team.name}}</span> <button mat-button style="margin-left: auto;" color="warn" (click)="removeTeamFromProject(team.id)"><mat-icon>remove</mat-icon></button>
+    </div>
+    <add-team-to-project [teamIds]="getTeamsIds()" (addTeamToProjectEmitter)="addTeamToProject($event)"></add-team-to-project>
+  </ng-template>
+</mat-expansion-panel>

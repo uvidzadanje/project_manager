@@ -6,9 +6,11 @@
       </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <mat-form-field appearance="legacy">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Name" [(ngModel)]="team.name">
-  </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" (click)="addTeamForm()">Add</button>
+  <div style="display: flex; flex-direction: column;">
+    <mat-form-field appearance="legacy">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" [(ngModel)]="team.name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click)="addTeamForm()">Add</button>
+  </div>
 </mat-expansion-panel>

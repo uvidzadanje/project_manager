@@ -1,0 +1,7 @@
+<div *ngIf="teamInfo$ | async; let team">
+  <div *ngFor="let employee of team.employees">
+    <p>{{employee.firstname}}</p>
+    <p>{{employee.lastname}}</p>
+    <p>{{employee.type?.name}}</p>
+  </div>
+</div>

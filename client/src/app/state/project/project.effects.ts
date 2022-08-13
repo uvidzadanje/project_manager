@@ -60,4 +60,28 @@ export class ProjectEffects {
       )
     )
   )
+
+  removeTeamFromProject = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProjectActions.removeTeam),
+      mergeMap((data) =>
+        this.projectService.removeTeamFromProject(data.projectId, data.teamId, data.token)
+        .pipe(
+          map(() => ProjectActions.removeTeamSuccess({teamId: data.teamId, projectId: data.projectId}))
+        )
+      )
+    )
+  )
+
+  addTeamToProject = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProjectActions.addTeamToProject),
+      mergeMap((data) =>
+        this.projectService.addTeamToProject(data.projectId, data.teamId, data.token)
+        .pipe(
+          map((result) => ProjectActions.addTeamToProjectSuccess({team: (result as Project).teams?.find(team => team.id === data.teamId)!, projectId: data.projectId}))
+        )
+      )
+    )
+  )
 }

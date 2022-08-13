@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CreateProjectDto, UpdateProjectDto } from '../dto/project/project.dto';
 
+const BASE_API_URL = environment.api_url+"/project";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,16 @@ export class ProjectService {
 
   getAll(token: string)
   {
-    return this.httpClient.get(environment.api_url+"/project", {
+    return this.httpClient.get(BASE_API_URL, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
+  getOne(id: number, token: string)
+  {
+    return this.httpClient.get(`${BASE_API_URL}/${id}`, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`
       })
@@ -23,7 +34,7 @@ export class ProjectService {
 
   add(data: {token: string, project: CreateProjectDto})
   {
-    return this.httpClient.post(environment.api_url+"/project", data.project, {
+    return this.httpClient.post(BASE_API_URL, data.project, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${data.token}`
       })
@@ -32,7 +43,7 @@ export class ProjectService {
 
   update(data: {token: string, id: number, payload: UpdateProjectDto})
   {
-    return this.httpClient.patch(environment.api_url+"/project/"+data.id, data.payload, {
+    return this.httpClient.patch(`${BASE_API_URL}/${data.id}`, data.payload, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${data.token}`
       })
@@ -41,9 +52,27 @@ export class ProjectService {
 
   delete(data: {token: string, id: number})
   {
-    return this.httpClient.delete(environment.api_url+"/project/"+data.id, {
+    return this.httpClient.delete(`${BASE_API_URL}/${data.id}`, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${data.token}`
+      })
+    })
+  }
+
+  removeTeamFromProject(projectId: number, teamId: number, token: string)
+  {
+    return this.httpClient.delete(`${BASE_API_URL}/${projectId}/team/${teamId}`, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
+  addTeamToProject(projectId: number, teamId: number, token: string)
+  {
+    return this.httpClient.patch(`${BASE_API_URL}/team`, {project_id: projectId, team_id: teamId}, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
       })
     })
   }

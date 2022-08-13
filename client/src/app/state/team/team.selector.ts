@@ -23,5 +23,10 @@ export const selectTeamId = createSelector(
 export const selectSelectedTeam = createSelector(
   teamSelectorFeature,
   selectTeamId,
-  (teams, selectedTeamId) => teams.entities[selectedTeamId]
+  (teams, selectedTeamId) => teams.entities[selectedTeamId]!
+)
+
+export const loadedTeam = createSelector(
+  teamSelectorFeature,
+  (feature) => feature.nesto
 )

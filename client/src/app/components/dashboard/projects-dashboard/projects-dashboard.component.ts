@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { UpdateProjectDto } from 'src/app/dto/project/project.dto';
 import { Project } from 'src/app/models/project';
-import { deleteProject, loadProjects, setSelectedProjectId, updateProject } from 'src/app/state/project/project.action';
+import { addTeamToProject, deleteProject, loadProjects, removeTeam, setSelectedProjectId, updateProject } from 'src/app/state/project/project.action';
 import { selectProjects, selectSelectedProject, selectSelectedProjectId } from 'src/app/state/project/project.selector';
 import { UpdateProjectDialogComponent } from '../parts/update-project-dialog/update-project-dialog.component';
 
@@ -60,6 +60,18 @@ export class ProjectsDashboardComponent implements OnInit {
     if(!project) return;
 
     this.openDialog(project as UpdateProjectDto);
+  }
+
+  removeTeamFromProject(data: {projectId: number, teamId: number})
+  {
+    const {projectId, teamId} = data;
+    this.store.dispatch(removeTeam({teamId, projectId, token: this.accessToken}));
+  }
+
+  addTeam(data: {projectId: number, teamId: number})
+  {
+    const {projectId, teamId} = data;
+    this.store.dispatch(addTeamToProject({projectId, teamId, token: this.accessToken}));
   }
 
 }

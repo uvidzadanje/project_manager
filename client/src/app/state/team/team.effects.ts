@@ -24,6 +24,21 @@ export class TeamEffects {
     )
   )
 
+  getOne = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TeamActions.loadMoreInfoForTeam),
+      mergeMap((data) =>
+        this.teamService.getOne(data.id, data.token)
+        .pipe(
+          map((response) => {
+            const {id, ...changes} = response as Team;
+            return TeamActions.updateTeamSuccess({id, changes}) /* TeamActions.setItem({ team: response as Team }) */
+          })
+        )
+      )
+    )
+  )
+
   add = createEffect(() =>
     this.actions$.pipe(
       ofType(TeamActions.addTeam),

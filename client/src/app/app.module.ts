@@ -46,6 +46,10 @@ import { ProjectEffects } from './state/project/project.effects';
 import { UpdateTeamDialogComponent } from './components/dashboard/parts/update-team-dialog/update-team-dialog.component';
 import { UpdateProjectDialogComponent } from './components/dashboard/parts/update-project-dialog/update-project-dialog.component';
 import { AccountSettingsComponent } from './components/auth/account-settings/account-settings.component';
+import { TeamAdditionalInfoComponent } from './components/parts/team-additional-info/team-additional-info.component';
+import { TeamItemComponent } from './components/dashboard/parts/team-item/team-item.component';
+import { ProjectItemComponent } from './components/dashboard/parts/project-item/project-item.component';
+import { AddTeamToProjectComponent } from './components/dashboard/parts/add-team-to-project/add-team-to-project.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,11 @@ import { AccountSettingsComponent } from './components/auth/account-settings/acc
     AddProjectFormComponent,
     UpdateTeamDialogComponent,
     UpdateProjectDialogComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    TeamAdditionalInfoComponent,
+    TeamItemComponent,
+    ProjectItemComponent,
+    AddTeamToProjectComponent
   ],
   imports: [
     BrowserModule,

@@ -39,5 +39,29 @@ export const projectReducer = createReducer(
       ...state,
       selectedProjectId: id
     }
-  })
+  }),
+  on(Actions.removeTeamSuccess, (state, {teamId, projectId}) =>
+    {
+      return adapter.updateOne(
+        {
+          id: projectId,
+          changes: {
+            teams: state.entities[projectId]?.teams?.filter(team => team.id !== teamId)
+          }
+        },
+        state
+      )
+    }
+  ),
+  on(Actions.addTeamToProjectSuccess, (state, {team, projectId}) =>
+    adapter.updateOne(
+      {
+        id: projectId,
+        changes: {
+          teams: [...state.entities[projectId]?.teams!, team]
+        }
+      },
+      state
+    )
+  )
 )

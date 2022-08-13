@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { CreateProjectDto, UpdateProjectDto } from "src/app/dto/project/project.dto";
 import { Project } from "src/app/models/project";
+import { Team } from "src/app/models/team";
 
 export const loadProjects = createAction(
   "Load projects",
@@ -45,4 +46,24 @@ export const deleteProjectSuccess = createAction(
 export const setSelectedProjectId = createAction(
   "Set selected project ID",
   props<{id: number}>()
+)
+
+export const removeTeam = createAction(
+  "Remove team from project",
+  props<{teamId: number, projectId: number, token: string}>()
+)
+
+export const removeTeamSuccess = createAction(
+  "Remove team from project success",
+  props<{teamId: number, projectId: number}>()
+)
+
+export const addTeamToProject = createAction(
+  "Add team to project",
+  props<{teamId: number, projectId: number, token: string}>()
+)
+
+export const addTeamToProjectSuccess = createAction(
+  "Add team to project success",
+  props<{projectId: number, team: Team}>()
 )
