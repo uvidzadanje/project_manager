@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, mergeMap } from "rxjs";
+import { map, merge, mergeMap } from "rxjs";
+import { Employee } from "src/app/models/employee";
 import { Team } from "src/app/models/team";
 import { TeamService } from "src/app/services/team.service";
 import * as TeamActions from "./team.action";
@@ -70,6 +71,30 @@ export class TeamEffects {
         this.teamService.delete(data as {token: string, id: number})
         .pipe(
           map(() => TeamActions.deleteTeamSuccess({id: data.id}))
+        )
+      )
+    )
+  )
+
+  addEmployee = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TeamActions.addEmployeeToTeam),
+      mergeMap(data =>
+        this.teamService.addEmployee({teamId: data.teamId, employeeId: data.employeeId, token: data.token})
+        .pipe(
+          map(response => TeamActions.addEmployeeToTeamSuccess({employee: (response as Team).employees?.find(employee => employee.id === data.employeeId)!, id: data.teamId}))
+        )
+      )
+    )
+  )
+
+  removeEmployee = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TeamActions.removeEmployeeFromTeam),
+      mergeMap(data =>
+        this.teamService.addEmployee({teamId: data.teamId, employeeId: data.employeeId, token: data.token})
+        .pipe(
+          map(() => TeamActions.removeEmployeeFromTeamSuccess({teamId: data.teamId, employeeId: data.employeeId}))
         )
       )
     )

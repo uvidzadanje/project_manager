@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { UpdateTeamDto } from 'src/app/dto/team/team.dto';
 import { Team } from 'src/app/models/team';
-import { deleteTeam, loadTeams, setSelectTeamId, updateTeam } from 'src/app/state/team/team.action';
+import { addEmployeeToTeam, deleteTeam, loadTeams, removeEmployeeFromTeam, setSelectTeamId, updateTeam } from 'src/app/state/team/team.action';
 import { selectSelectedTeam, selectTeams, selectTeamId } from 'src/app/state/team/team.selector';
 import { UpdateTeamDialogComponent } from '../parts/update-team-dialog/update-team-dialog.component';
 
@@ -59,6 +59,18 @@ export class TeamsDashboardComponent implements OnInit {
     if(!team) return;
 
     this.openDialog(team as UpdateTeamDto);
+  }
+
+  addEmployee(data: {teamId: number, employeeId: number})
+  {
+    const {teamId, employeeId} = data;
+    this.store.dispatch(addEmployeeToTeam({token: this.accessToken, teamId, employeeId}));
+  }
+
+  removeEmployee(data: {teamId: number, employeeId: number})
+  {
+    const {teamId, employeeId} = data;
+    this.store.dispatch(removeEmployeeFromTeam({teamId, employeeId, token: this.accessToken}));
   }
 
 }

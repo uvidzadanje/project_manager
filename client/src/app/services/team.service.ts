@@ -61,4 +61,24 @@ export class TeamService {
       })
     })
   }
+
+  addEmployee(data: {teamId: number, employeeId: number, token: string})
+  {
+    const {teamId, employeeId, token} = data;
+    return this.httpClient.patch(`${BASE_API_URL}/employee`, {team_id: teamId, employee_id: employeeId}, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
+  removeEmployee(data: {teamId: number, employeeId: number, token: string})
+  {
+    const {teamId, employeeId, token} = data;
+    return this.httpClient.delete(`${BASE_API_URL}/${teamId}/employee/${employeeId}`, {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    })
+  }
 }

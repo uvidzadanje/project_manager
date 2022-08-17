@@ -1,1 +1,22 @@
-
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{team.name}}
+    </mat-panel-title>
+    <button mat-icon-button (click)="editTeam()">
+      <mat-icon aria-hidden="false" [color]="'primary'">edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="remove()">
+      <mat-icon aria-hidden="false" [color]="'warn'">close</mat-icon>
+    </button>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <div *ngFor="let employee of team.employees">
+      <span>{{employee.firstname}} {{employee.lastname}} - {{employee.type?.name}} <button mat-button style="margin-left: auto;" color="warn" (click)="removeEmployeeFromTeam(employee.id)"><mat-icon>remove</mat-icon></button></span>
+    </div>
+    <add-employee-to-team
+      [employeeIds]="getEmployeeIds()"
+      (addEmployeeToTeamEmitter)="addEmployeeToTeam($event)"
+    ></add-employee-to-team>
+  </ng-template>
+</mat-expansion-panel>

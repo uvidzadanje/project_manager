@@ -29,7 +29,6 @@ export const teamReducer = createReducer(
   ),
   on(Actions.updateTeamSuccess, (state, {id, changes}) =>
     {
-      console.log("bbbb"+" "+id);
       return adapter.updateOne(
         {
           id,
@@ -48,10 +47,26 @@ export const teamReducer = createReducer(
       selectedTeamId: id
     }
   }),
-  on(Actions.setItem, (state, {team}) => {
-    return {
-      ...state,
-      nesto: team
-    }
-  })
+  on(Actions.addEmployeeToTeamSuccess, (state, {employee, id}) =>
+    adapter.updateOne(
+      {
+        id,
+        changes: {
+          employees: [...state.entities[id]?.employees!, employee]
+        }
+      },
+      state
+    )
+  ),
+  on(Actions.removeEmployeeFromTeamSuccess, (state, {teamId, employeeId}) =>
+    adapter.updateOne(
+      {
+        id: teamId,
+        changes: {
+          employees: state.entities[teamId]?.employees?.filter(employee => employee.id !== employeeId)
+        }
+      },
+      state
+    )
+  )
 )

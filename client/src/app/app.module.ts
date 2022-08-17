@@ -50,6 +50,13 @@ import { TeamAdditionalInfoComponent } from './components/parts/team-additional-
 import { TeamItemComponent } from './components/dashboard/parts/team-item/team-item.component';
 import { ProjectItemComponent } from './components/dashboard/parts/project-item/project-item.component';
 import { AddTeamToProjectComponent } from './components/dashboard/parts/add-team-to-project/add-team-to-project.component';
+import { ResponsibilityDashboardComponent } from './components/dashboard/responsibility-dashboard/responsibility-dashboard.component';
+import { responsibilityReducer } from './state/responsibility/responsibility.reducer';
+import { ResponsibilityEffects } from './state/responsibility/responsibility.effects';
+import { ResponsibilityItemComponent } from './components/dashboard/parts/responsibility-item/responsibility-item.component';
+import { AddEmployeeToTeamComponent } from './components/dashboard/parts/add-employee-to-team/add-employee-to-team.component';
+import { employeeReducer } from './state/employee/employee.reducer';
+import { EmployeeEffects } from './state/employee/employee.effects';
 
 @NgModule({
   declarations: [
@@ -73,7 +80,10 @@ import { AddTeamToProjectComponent } from './components/dashboard/parts/add-team
     TeamAdditionalInfoComponent,
     TeamItemComponent,
     ProjectItemComponent,
-    AddTeamToProjectComponent
+    AddTeamToProjectComponent,
+    ResponsibilityDashboardComponent,
+    ResponsibilityItemComponent,
+    AddEmployeeToTeamComponent
   ],
   imports: [
     BrowserModule,
@@ -97,12 +107,16 @@ import { AddTeamToProjectComponent } from './components/dashboard/parts/add-team
     StoreModule.forRoot<AppState>({
       auth: authReducer,
       teams: teamReducer,
-      projects: projectReducer
+      projects: projectReducer,
+      responsibilites: responsibilityReducer,
+      employees: employeeReducer
     }),
     EffectsModule.forRoot([
       AuthEffects,
       TeamEffects,
-      ProjectEffects
+      ProjectEffects,
+      ResponsibilityEffects,
+      EmployeeEffects
     ])
   ],
   providers: [],

@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { CreateTeamDto, UpdateTeamDto } from "src/app/dto/team/team.dto";
+import { Employee } from "src/app/models/employee";
 import { Team } from "src/app/models/team";
 
 export const loadTeams = createAction(
@@ -52,9 +53,24 @@ export const loadMoreInfoForTeam = createAction(
   props<{id: number, token: string}>()
 )
 
-export const setItem = createAction(
-  "Create",
-  props<{team: Team}>()
+export const addEmployeeToTeam = createAction(
+  "Add employee to team",
+  props<{token: string, teamId: number, employeeId: number}>()
+)
+
+export const addEmployeeToTeamSuccess = createAction(
+  "Add employee to team success",
+  props<{employee: Employee, id: number}>()
+)
+
+export const removeEmployeeFromTeam = createAction(
+  "Remove employee from team",
+  props<{teamId: number, employeeId: number, token: string}>()
+)
+
+export const removeEmployeeFromTeamSuccess = createAction(
+  "Remove employee from team success",
+  props<{teamId: number, employeeId: number}>()
 )
 
 

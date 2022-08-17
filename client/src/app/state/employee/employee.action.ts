@@ -2,7 +2,8 @@ import { createAction, props } from "@ngrx/store";
 import { Employee } from "src/app/models/employee";
 
 export const loadEmployees = createAction(
-  "Load employees"
+  "Load employees",
+  props<{token: string}>()
 );
 
 export const loadEmployeesSuccess = createAction(
