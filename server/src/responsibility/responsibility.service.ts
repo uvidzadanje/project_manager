@@ -45,4 +45,16 @@ export class ResponsibilityService {
   async remove(id: number) {
     return await this.responsibilityRepository.delete(id);
   }
+
+  async getByEmployee(id: number)
+  {
+    return await this.responsibilityRepository.find({
+      relations: ["team", "project"],
+      where: {
+        employee: {
+          id
+        }
+      }
+    })
+  }
 }

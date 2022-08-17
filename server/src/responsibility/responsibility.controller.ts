@@ -44,4 +44,11 @@ export class ResponsibilityController {
   remove(@Param('id') id: string) {
     return this.responsibilityService.remove(+id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("employee/:id")
+  getByEmployee(@Param("id") employee_id: number)
+  {
+    return this.responsibilityService.getByEmployee(employee_id);
+  }
 }
