@@ -23,4 +23,16 @@ export class EmployeeEffects {
       )
     )
   )
+
+  getByTeam = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EmployeeActions.loadEmployeesByTeam),
+      mergeMap(data =>
+        this.employeeService.getByTeam(data.teamId)
+        .pipe(
+          map(data => EmployeeActions.loadEmployeesSuccess({employees: data as Employee[]}))
+        )
+      )
+    )
+  )
 }

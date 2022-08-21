@@ -23,4 +23,52 @@ export class ResponsibilityEffects {
       )
     )
   )
+
+  getByProjectAndTeam = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ResponsibilityActions.getResponsibilityByProjectAndTeam),
+      mergeMap(data =>
+        this.responsibilityService.getByProjectAndTeam(data)
+        .pipe(
+          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]}))
+        )
+      )
+    )
+  )
+
+  add = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ResponsibilityActions.addResponsibility),
+      mergeMap(data =>
+        this.responsibilityService.add(data)
+        .pipe(
+          map(data => ResponsibilityActions.addResponsibilitySuccess({responsibility: data as Responsibility}))
+        )
+      )
+    )
+  )
+
+  update = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ResponsibilityActions.updateResponsibility),
+      mergeMap(data =>
+        this.responsibilityService.update(data)
+        .pipe(
+          map(() => ResponsibilityActions.updateResponsibilitySuccess({...data}))
+        )
+      )
+    )
+  )
+
+  delete = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ResponsibilityActions.deleteResponsibility),
+      mergeMap(data =>
+        this.responsibilityService.delete(data)
+        .pipe(
+          map(() => ResponsibilityActions.deleteResponsibilitySuccess({...data}))
+        )
+      )
+    )
+  )
 }

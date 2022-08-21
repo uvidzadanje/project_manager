@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginPayloadDto } from '../dto/auth/login-payload.dto';
 import { CreateEmployeeDto } from '../dto/employee/employee.dto';
+import { getAuthorizationHeader } from '../helper/header.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,6 @@ export class AuthService {
 
   getAuthInfoByToken(token: string)
   {
-    return this.httpClient.get(environment.api_url+"/auth/me", {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      })
-    });
+    return this.httpClient.get(environment.api_url+"/auth/me", getAuthorizationHeader(token));
   }
 }

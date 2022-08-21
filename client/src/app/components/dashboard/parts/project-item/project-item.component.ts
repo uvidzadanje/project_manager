@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Project } from 'src/app/models/project';
+import { ShowResponsibilitiesComponent } from '../show-responsibilities/show-responsibilities.component';
 
 @Component({
   selector: 'project-item',
@@ -22,7 +24,9 @@ export class ProjectItemComponent implements OnInit {
 
   @Output() addTeamToProjectEmitter = new EventEmitter<{teamId: number, projectId: number}>();
 
-  constructor() { }
+  constructor(
+    public showResponsibilitiesDialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -52,4 +56,14 @@ export class ProjectItemComponent implements OnInit {
     return this.addTeamToProjectEmitter.emit({projectId: this.project.id, teamId});
   }
 
+  showResponsibilities(teamId: number)
+  {
+    this.showResponsibilitiesDialog.open(ShowResponsibilitiesComponent, {
+      width: "400px",
+      data: {
+        teamId,
+        projectId: this.project.id
+      }
+    })
+  }
 }

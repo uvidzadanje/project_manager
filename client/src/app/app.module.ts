@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { LoginComponent } from './components/auth/login/login.component';
 import { NavbarComponent } from './components/parts/navbar/navbar.component';
@@ -57,6 +58,8 @@ import { ResponsibilityItemComponent } from './components/dashboard/parts/respon
 import { AddEmployeeToTeamComponent } from './components/dashboard/parts/add-employee-to-team/add-employee-to-team.component';
 import { employeeReducer } from './state/employee/employee.reducer';
 import { EmployeeEffects } from './state/employee/employee.effects';
+import { ShowResponsibilitiesComponent } from './components/dashboard/parts/show-responsibilities/show-responsibilities.component';
+import { AddResponsibilityComponent } from './components/dashboard/parts/add-responsibility/add-responsibility.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,9 @@ import { EmployeeEffects } from './state/employee/employee.effects';
     AddTeamToProjectComponent,
     ResponsibilityDashboardComponent,
     ResponsibilityItemComponent,
-    AddEmployeeToTeamComponent
+    AddEmployeeToTeamComponent,
+    ShowResponsibilitiesComponent,
+    AddResponsibilityComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +107,7 @@ import { EmployeeEffects } from './state/employee/employee.effects';
     MatButtonToggleModule,
     MatDialogModule,
     MatMenuModule,
+    MatTooltipModule,
     HttpClientModule,
     FormsModule,
     StoreModule.forRoot<AppState>({

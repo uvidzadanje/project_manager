@@ -15,5 +15,22 @@ export const responsibilityReducer = createReducer(
   initialState,
   on(Actions.loadResponsibilitySuccess, (state, {responsibilities}) =>
     adapter.setAll(responsibilities, state)
+  ),
+  on(Actions.addResponsibilitySuccess, (state, {responsibility}) =>
+    adapter.addOne(responsibility, state)
+  ),
+  on(Actions.updateResponsibilitySuccess, (state, {id, changes}) =>
+    adapter.updateOne(
+      {
+        id,
+        changes: {
+          description: changes.description
+        }
+      },
+      state
+    )
+  ),
+  on(Actions.deleteResponsibilitySuccess, (state, {id}) =>
+    adapter.removeOne(id, state)
   )
 )

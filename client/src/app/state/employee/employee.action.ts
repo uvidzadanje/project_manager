@@ -6,6 +6,11 @@ export const loadEmployees = createAction(
   props<{token: string}>()
 );
 
+export const loadEmployeesByTeam = createAction(
+  "Load employees by team",
+  props<{teamId: number}>()
+)
+
 export const loadEmployeesSuccess = createAction(
   "Load employees success",
   props<{ employees: Employee[] }>()
