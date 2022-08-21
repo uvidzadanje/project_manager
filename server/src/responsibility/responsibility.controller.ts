@@ -51,4 +51,12 @@ export class ResponsibilityController {
   {
     return this.responsibilityService.getByEmployee(employee_id);
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('project manager')
+  @Get('project/:projectId/team/:teamId')
+  getByProjectAndTeam(@Param("projectId") project_id: number, @Param("teamId") team_id: number)
+  {
+    return this.responsibilityService.getByTeamAndProject(team_id, project_id);
+  }
 }

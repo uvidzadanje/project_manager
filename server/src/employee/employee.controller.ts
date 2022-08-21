@@ -33,4 +33,10 @@ export class EmployeeController {
   remove(@Param('id') id: string) {
     return this.employeeService.remove(+id);
   }
+
+  @Get("team/:id")
+  getByTeam(@Param("id") team_id:number)
+  {
+    return this.employeeService.getByTeam(team_id);
+  }
 }

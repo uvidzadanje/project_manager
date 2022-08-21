@@ -57,4 +57,19 @@ export class ResponsibilityService {
       }
     })
   }
+
+  async getByTeamAndProject(teamId: number, projectId: number)
+  {
+    return await this.responsibilityRepository.find({
+      where: {
+        team: {
+          id: teamId
+        },
+        project: {
+          id: projectId
+        }
+      },
+      relations: ["team", "project", "employee"]
+    })
+  }
 }

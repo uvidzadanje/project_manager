@@ -72,4 +72,16 @@ export class EmployeeService {
   async remove(id: number) {
     return await this.employeeRepository.delete(id);
   }
+
+  async getByTeam(id: number)
+  {
+    return await this.employeeRepository.find({
+      where: {
+        teams: {
+          id
+        }
+      },
+      relations: ["type"]
+    })
+  }
 }
