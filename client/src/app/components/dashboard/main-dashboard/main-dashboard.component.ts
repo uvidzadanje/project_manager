@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, skip, take } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { Employee } from 'src/app/models/employee';
 import { getAuthInfo } from 'src/app/state/auth/auth.action';
@@ -25,19 +25,11 @@ export class MainDashboardComponent implements OnInit {
   });
 
   constructor(
-    private store: Store<AppState>,
-    private router: Router
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
-
-    const token = localStorage.getItem("token");
-    if(token) this.store.dispatch(getAuthInfo({ accessToken: token}));
-
-    this.authInfo$ = this.store.select(selectAuthInfo);
-    this.authInfo$.subscribe((data)=> {
-      if(!data.isLoggedIn) this.router.navigate(["/login"]);
-    })
+    this.authInfo$ = this.store.select(selectAuthInfo).pipe(skip(1), take(1));
   }
 
 }
