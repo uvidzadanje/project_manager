@@ -1,17 +1,20 @@
-<h1>Responsibilities</h1>
-<div *ngFor="let responsibility of responsibilities">
-  <span>{{responsibility.employee?.firstname}} {{responsibility.employee?.lastname}} - {{responsibility.description}}</span>
-  <button mat-button color="warn" (click)="removeResponsibility(responsibility.id)"><mat-icon>remove</mat-icon></button>
-  <!-- <button mat-button color="warn" (click)="updateResponsibility(responsibility.id)"><mat-icon>remove</mat-icon></button> -->
-</div>
-<add-responsibility
-  [teamId]="data.teamId"
-  [projectId]="data.projectId"
-  [employeeIds]="getEmployeeIds()"
-  (addResponsibilityEmitter)="add($event)"
->
+<div id="wrapp">
+  <h1>Responsibilities</h1>
+  <div *ngFor="let responsibility of responsibilities" style="width:100%">
+    <show-responsibility
+      [responsibility]="responsibility"
+      (removeResponsibilityEmitter)="remove($event)"
+      (updateResponsibilityEmitter)="update($event)"
+    ></show-responsibility>
+  </div>
 
-</add-responsibility>
-<div mat-dialog-actions>
-  <button mat-button (click)="close()" color="primary">Cancel</button>
+  <add-responsibility
+  [teamId]="paramsId.teamId"
+  [projectId]="paramsId.projectId"
+  (addResponsibilityEmitter)="add($event)"
+
+  style="width: 100%;"
+  >
+
+  </add-responsibility>
 </div>
