@@ -1,4 +1,5 @@
 import { EmployeeType } from "./employee-type";
+import { Team } from "./team";
 
 export interface Employee
 {
@@ -7,5 +8,6 @@ export interface Employee
   password?: string;
   firstname: string;
   lastname: string;
+  teams?: Team[];
   type?: EmployeeType
 }
