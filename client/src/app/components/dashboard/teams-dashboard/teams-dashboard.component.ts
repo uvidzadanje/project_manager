@@ -67,9 +67,8 @@ export class TeamsDashboardComponent implements OnInit {
     this.store.dispatch(addEmployeeToTeam({token: this.accessToken, teamId, employeeId}));
   }
 
-  removeEmployee(data: {teamId: number, employeeId: number})
+  removeEmployee({teamId, employeeId}: {teamId: number, employeeId: number})
   {
-    const {teamId, employeeId} = data;
     this.store.dispatch(removeEmployeeFromTeam({teamId, employeeId, token: this.accessToken}));
   }
 
