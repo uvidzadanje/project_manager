@@ -1,5 +1,4 @@
 import { createReducer, on } from "@ngrx/store";
-import { Action } from "rxjs/internal/scheduler/Action";
 import { Employee } from "src/app/models/employee";
 import * as Actions from "src/app/state/auth/auth.action";
 
@@ -26,6 +25,7 @@ export const authReducer = createReducer(
   ),
   on(Actions.logout, (state, {}) =>
     {
+      localStorage.clear();
       return { ...state, isLoggedIn: false, accessToken: ""}
     }
   ),

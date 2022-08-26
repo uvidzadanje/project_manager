@@ -14,3 +14,14 @@ export const selectEmployees = createSelector(
   .filter(employee => !!employee)
   .map(employee => <Employee> employee)
 )
+
+export const selectSelectedEmployeeIds = createSelector(
+  employeeFeature,
+  (employees) => employees.selectedEmployeeIds
+)
+
+export const selectEmployeeWithoutResponsibility = createSelector(
+  selectEmployees,
+  selectSelectedEmployeeIds,
+  (employees, employeeIds) => employees.filter(employee => employeeIds.every(id => id !== employee.id))
+)

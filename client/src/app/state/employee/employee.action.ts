@@ -15,3 +15,18 @@ export const loadEmployeesSuccess = createAction(
   "Load employees success",
   props<{ employees: Employee[] }>()
 )
+
+export const setSelectedEmployeeIds = createAction(
+  "Set selected employee ID-s",
+  props<{employeeIds: number[]}>()
+)
+
+export const addSelectedEmployeeId = createAction(
+  "Add selected employee ID",
+  props<{id: number}>()
+)
+
+export const deleteSelectedEmployeeId = createAction(
+  "Remove selected employee ID",
+  props<{id: number}>()
+)

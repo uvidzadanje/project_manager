@@ -33,7 +33,7 @@ export class TeamEffects {
         .pipe(
           map((response) => {
             const {id, ...changes} = response as Team;
-            return TeamActions.updateTeamSuccess({id, changes}) /* TeamActions.setItem({ team: response as Team }) */
+            return TeamActions.updateTeamSuccess({id, changes})
           })
         )
       )
@@ -92,7 +92,7 @@ export class TeamEffects {
     this.actions$.pipe(
       ofType(TeamActions.removeEmployeeFromTeam),
       mergeMap(data =>
-        this.teamService.addEmployee({teamId: data.teamId, employeeId: data.employeeId, token: data.token})
+        this.teamService.removeEmployee({teamId: data.teamId, employeeId: data.employeeId, token: data.token})
         .pipe(
           map(() => TeamActions.removeEmployeeFromTeamSuccess({teamId: data.teamId, employeeId: data.employeeId}))
         )
