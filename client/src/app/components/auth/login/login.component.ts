@@ -39,10 +39,6 @@ export class LoginComponent implements OnInit {
 
     this.error$ = this.store.select(selectAuthError);
     this.authInfo$ = this.store.select(selectAuthInfo);
-    this.authInfo$.subscribe((data) => {
-      if(data.isLoggedIn) this.router.navigate(["/dashboard"]);
-    });
-
   }
 
   login()
