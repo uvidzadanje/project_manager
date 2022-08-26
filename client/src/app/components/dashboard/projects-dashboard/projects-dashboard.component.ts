@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { UpdateProjectDto } from 'src/app/dto/project/project.dto';
+import { getDateAndTime } from 'src/app/helper/general.helper';
 import { Project } from 'src/app/models/project';
 import { addTeamToProject, deleteProject, loadProjects, removeTeam, setSelectedProjectId, updateProject } from 'src/app/state/project/project.action';
 import { selectProjects, selectSelectedProject, selectSelectedProjectId } from 'src/app/state/project/project.selector';
@@ -37,7 +38,7 @@ export class ProjectsDashboardComponent implements OnInit {
   {
     const dialogRef = this.updateProjectDialog.open(UpdateProjectDialogComponent, {
       width: "300px",
-      data: {...data}
+      data: {...data, deadline_timestamp: getDateAndTime(data.deadline_timestamp!)}
     })
 
     dialogRef.afterClosed().subscribe(data => {
