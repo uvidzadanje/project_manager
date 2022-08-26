@@ -1,0 +1,12 @@
+<mat-card>
+  <span>{{responsibility.employee?.firstname}} {{responsibility.employee?.lastname}} -
+    <span *ngIf="!isEdit">{{responsibility.description}}</span>
+    <mat-form-field *ngIf="isEdit">
+      <input matInput [(ngModel)]="changes.description">
+    </mat-form-field>
+  </span>
+  <button mat-button color="warn" (click)="remove()"><mat-icon>remove</mat-icon></button>
+  <button mat-button color="warn" (click)="showEdit()" *ngIf="!isEdit"><mat-icon>edit</mat-icon></button>
+  <button mat-button color="warn" (click)="closeEdit()" *ngIf="isEdit"><mat-icon>close</mat-icon></button>
+  <button mat-button color="warn" (click)="update()" *ngIf="isEdit"><mat-icon>save</mat-icon></button>
+</mat-card>
