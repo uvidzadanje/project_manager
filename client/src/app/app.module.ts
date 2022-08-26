@@ -19,6 +19,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
 
 import { LoginComponent } from './components/auth/login/login.component';
 import { NavbarComponent } from './components/parts/navbar/navbar.component';
@@ -60,6 +61,10 @@ import { employeeReducer } from './state/employee/employee.reducer';
 import { EmployeeEffects } from './state/employee/employee.effects';
 import { ShowResponsibilitiesComponent } from './components/dashboard/parts/show-responsibilities/show-responsibilities.component';
 import { AddResponsibilityComponent } from './components/dashboard/parts/add-responsibility/add-responsibility.component';
+import { ShowResponsibilityComponent } from './components/dashboard/parts/show-responsibility/show-responsibility.component';
+import { employeeTypeReducer } from './state/employee-type/employee-type.reducer';
+import { EmployeeTypeEffects } from './state/employee-type/employee-type.effects';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -88,7 +93,8 @@ import { AddResponsibilityComponent } from './components/dashboard/parts/add-res
     ResponsibilityItemComponent,
     AddEmployeeToTeamComponent,
     ShowResponsibilitiesComponent,
-    AddResponsibilityComponent
+    AddResponsibilityComponent,
+    ShowResponsibilityComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +113,8 @@ import { AddResponsibilityComponent } from './components/dashboard/parts/add-res
     MatButtonToggleModule,
     MatDialogModule,
     MatMenuModule,
+    MatCardModule,
+
     MatTooltipModule,
     HttpClientModule,
     FormsModule,
@@ -115,17 +123,19 @@ import { AddResponsibilityComponent } from './components/dashboard/parts/add-res
       teams: teamReducer,
       projects: projectReducer,
       responsibilites: responsibilityReducer,
-      employees: employeeReducer
+      employees: employeeReducer,
+      employeeType: employeeTypeReducer
     }),
     EffectsModule.forRoot([
       AuthEffects,
       TeamEffects,
       ProjectEffects,
       ResponsibilityEffects,
-      EmployeeEffects
+      EmployeeEffects,
+      EmployeeTypeEffects
     ])
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
