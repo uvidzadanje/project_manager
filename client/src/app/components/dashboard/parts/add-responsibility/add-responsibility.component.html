@@ -13,7 +13,7 @@
         <input matInput placeholder="Description" [(ngModel)]="responsibility.description">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Tim</mat-label>
+        <mat-label>Employee</mat-label>
         <mat-select [(ngModel)]="selectedEmployee">
           <mat-option *ngFor="let employee of employees" [value]="employee.id">
             {{ employee.firstname }} {{employee.lastname}} - {{employee.type?.name}}
