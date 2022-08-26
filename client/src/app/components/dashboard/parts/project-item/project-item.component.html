@@ -18,7 +18,9 @@
     <div *ngFor="let team of project.teams">
       <span>{{team.name}}</span>
       <button mat-button color="warn" (click)="removeTeamFromProject(team.id)"><mat-icon>remove</mat-icon></button>
-      <button mat-button color="primary" matTooltip="Show responsibilities" (click)="showResponsibilities(team.id)"><mat-icon>work</mat-icon></button>
+      <button mat-button color="primary" matTooltip="Show responsibilities" [routerLink]="'/respons/project/'+project.id+'/team/'+team.id">
+        <mat-icon>work</mat-icon>
+      </button>
     </div>
     <add-team-to-project [teamIds]="getTeamsIds()" (addTeamToProjectEmitter)="addTeamToProject($event)"></add-team-to-project>
   </ng-template>
