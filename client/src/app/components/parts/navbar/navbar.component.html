@@ -7,10 +7,11 @@
     <span class="menu-spacer"></span>
     <div class="navbar-items" *ngIf="!((authInfo$ | async)?.isLoggedIn)">
       <a mat-button [routerLink]="'/'"> Početna </a>
-      <a mat-button [routerLink]="'/register'" style="margin-left: auto;"> Registruj se </a>
+      <a mat-button [routerLink]="'/register'" style="margin-left: auto;">Registruj se</a>
       <a mat-button [routerLink]="'/login'"> Prijavi se </a>
     </div>
     <div class="navbar-items" *ngIf="(authInfo$ | async)?.isLoggedIn">
+      <a mat-button [routerLink]="'/dashboard'"> Početna </a>
       <button mat-button [matMenuTriggerFor]="menu" style="margin-left: auto;">{{(authInfo$ | async)?.employee?.firstname}} {{(authInfo$ | async)?.employee?.lastname}}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item [routerLink]="'/settings'">Account settings</button>
@@ -29,6 +30,7 @@
       <a mat-button [routerLink]="'/login'"> Prijavi se </a>
     </mat-nav-list>
     <mat-nav-list *ngIf="(authInfo$ | async)?.isLoggedIn">
+      <a mat-button [routerLink]="'/dashboard'"> Početna </a>
       <a mat-button routerLink="'/settings'">Account settings</a>
       <a mat-button (click)="logout()"> Logout </a>
     </mat-nav-list>
