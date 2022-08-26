@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { UpdateEmployeeDto } from 'src/app/dto/employee/employee.dto';
 import { Employee } from 'src/app/models/employee';
-import { getAuthInfo, updateEmployeeInfo } from 'src/app/state/auth/auth.action';
-import { selectAuthInfo, selectEmployeeInfo } from 'src/app/state/auth/auth.selector';
+import { EmployeeType } from 'src/app/models/employee-type';
+import { updateEmployeeInfo } from 'src/app/state/auth/auth.action';
+import { selectEmployeeInfo } from 'src/app/state/auth/auth.selector';
+import { loadEmployeeTypes } from 'src/app/state/employee-type/employee-type.action';
+import { selectEmployeeTypes } from 'src/app/state/employee-type/employee-type.selector';
 
 @Component({
   selector: 'app-account-settings',
@@ -25,31 +27,35 @@ export class AccountSettingsComponent implements OnInit {
     employee: null
   });
 
+  employeeTypes$: Observable<EmployeeType[]> = of([]);
+
+
   employeeInfo: Employee = {
     id: NaN,
     username: "",
     password: "",
     firstname: "",
     lastname: "",
+    type: {
+      id: 0,
+      name: ""
+    }
   }
+
+  selectedEmployeeType = 0;
 
   constructor(
     private store: Store<AppState>,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.authInfo$ = this.store.select(selectAuthInfo);
-    this.authInfo$.subscribe(data => {
-      if(!data.isLoggedIn) {
+    this.store.dispatch(loadEmployeeTypes());
+    this.employeeTypes$ = this.store.select(selectEmployeeTypes);
 
-        const token = localStorage.getItem("token");
-        if(token) this.store.dispatch(getAuthInfo({ accessToken: token }));
-
-        this.router.navigate(["/login"]);
-      }
-      else this.store.select(selectEmployeeInfo).subscribe(data => this.employeeInfo = {...data});
-    })
+    this.store.select(selectEmployeeInfo).subscribe(data => {
+      this.employeeInfo = {...data};
+      this.selectedEmployeeType = this.employeeInfo.type?.id!;
+    });
   }
 
   update()
@@ -58,7 +64,7 @@ export class AccountSettingsComponent implements OnInit {
     if(!changes.password) delete changes["password"];
     const token = localStorage.getItem("token")!;
 
-    this.store.dispatch(updateEmployeeInfo({ changes: changes as UpdateEmployeeDto, id, accessToken: token }))
+    this.store.dispatch(updateEmployeeInfo({ changes: {...changes as UpdateEmployeeDto, employee_type_id: this.selectedEmployeeType}, id, accessToken: token }))
   }
 
 }
