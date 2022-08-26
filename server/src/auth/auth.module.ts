@@ -14,7 +14,7 @@ import { EmployeeModule } from 'src/employee/employee.module';
     PassportModule,
     JwtModule.register({
       secret: JWT_SECRET_KEY,
-      signOptions: { expiresIn: "600s" }
+      signOptions: { expiresIn: "1h" }
     })
   ],
   providers: [AuthService, JwtStategy, LocalStategy],

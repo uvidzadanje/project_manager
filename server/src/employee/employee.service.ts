@@ -28,7 +28,12 @@ export class EmployeeService {
 
   async findAll() {
     return await this.employeeRepository.find({
-      relations: ["type"]
+      relations: ["type"],
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true
+      }
     });
   }
 
