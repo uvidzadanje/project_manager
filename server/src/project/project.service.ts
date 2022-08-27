@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ResponsibilityExtraService } from 'src/responsibility-extra/responsibility-extra.service';
 import { TeamService } from 'src/team/team.service';
 import { Repository } from 'typeorm';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -11,7 +12,8 @@ import { Project } from './entities/project.entity';
 export class ProjectService {
   constructor(
     @InjectRepository(Project) private projectRepository: Repository<Project>,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private responsibilityExtraService: ResponsibilityExtraService
   ) {}
 
   async create(createProjectDto: CreateProjectDto) {
@@ -54,6 +56,8 @@ export class ProjectService {
   {
     const project = await this.findOne(relation.project_id);
     project.teams = project.teams.filter(team => team.id !== relation.team_id);
+
+    this.responsibilityExtraService.deleteByTeamAndProject(relation);
 
     return await this.projectRepository.save(project);
   }

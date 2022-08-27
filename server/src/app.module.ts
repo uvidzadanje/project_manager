@@ -9,15 +9,11 @@ import { TeamModule } from './team/team.module';
 import { ProjectModule } from './project/project.module';
 import { ResponsibilityModule } from './responsibility/responsibility.module';
 import { AuthModule } from './auth/auth.module';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './auth/roles.guard';
+import { ResponsibilityExtraModule } from './responsibility-extra/responsibility-extra.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), EmployeeModule, EmployeeTypeModule, TeamModule, ProjectModule, ResponsibilityModule, AuthModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), EmployeeModule, EmployeeTypeModule, TeamModule, ProjectModule, ResponsibilityModule, AuthModule, ResponsibilityExtraModule],
   controllers: [AppController],
-  providers: [AppService, /* {
-    provide: APP_GUARD,
-    useClass: RolesGuard
-  } */],
+  providers: [AppService],
 })
 export class AppModule {}

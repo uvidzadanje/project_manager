@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EmployeeService } from 'src/employee/employee.service';
+import { ResponsibilityExtraService } from 'src/responsibility-extra/responsibility-extra.service';
 import { Repository } from 'typeorm';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { TeamEmployeeRelationDto } from './dto/team-employee-relation.dto';
@@ -11,7 +12,8 @@ import { Team } from './entities/team.entity';
 export class TeamService {
   constructor(
     @InjectRepository(Team) private teamRepository: Repository<Team>,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private responsibilityExtraService: ResponsibilityExtraService
   ) {}
 
   async create(createTeamDto: CreateTeamDto) {
@@ -75,6 +77,7 @@ export class TeamService {
   {
     let team = await this.findOne(relation.team_id);
     team.employees = team.employees.filter(employee => employee.id !== relation.employee_id);
+    await this.responsibilityExtraService.deleteByEmployeeAndTeam({teamId: relation.team_id, employeeId: relation.employee_id});
     return await this.teamRepository.save(team);
   }
 }
