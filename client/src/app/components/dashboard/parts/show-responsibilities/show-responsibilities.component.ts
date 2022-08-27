@@ -5,7 +5,6 @@ import { skip, take } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { CreateResponsibilityDto, UpdateResponsibilityDto } from 'src/app/dto/responsibility/responsibility.dto';
 import { Responsibility } from 'src/app/models/responsibility';
-import { getAuthInfo } from 'src/app/state/auth/auth.action';
 import { selectAuthToken } from 'src/app/state/auth/auth.selector';
 import { loadEmployeesByTeam, setSelectedEmployeeIds } from 'src/app/state/employee/employee.action';
 import { addResponsibility, deleteResponsibility, getResponsibilityByProjectAndTeam, updateResponsibility } from 'src/app/state/responsibility/responsibility.action';
@@ -37,11 +36,8 @@ export class ShowResponsibilitiesComponent implements OnInit {
       this.paramsId.teamId = +params["teamId"];
     })
 
-    const token = localStorage.getItem("token");
-    if(token) this.store.dispatch(getAuthInfo({ accessToken: token}));
-
-
-    this.store.select(selectAuthToken).pipe(skip(1), take(1)).subscribe(data => {
+    this.store.select(selectAuthToken).subscribe(data => {
+      if(!data) return;
       this.token = data;
       this.store.dispatch(getResponsibilityByProjectAndTeam({...this.paramsId, token: this.token}));
     });
