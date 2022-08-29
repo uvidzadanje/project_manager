@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, mergeMap } from "rxjs";
+import { catchError, map, mergeMap, of } from "rxjs";
 import { Employee } from "src/app/models/employee";
 import { EmployeeService } from "src/app/services/employee.service";
 import * as EmployeeActions from "./employee.action";
+import * as ErrorActions from "../error/error.action";
 
 @Injectable()
 export class EmployeeEffects {
@@ -18,7 +19,8 @@ export class EmployeeEffects {
       mergeMap(data =>
         this.employeeService.getAll(data.token)
         .pipe(
-          map(data => EmployeeActions.loadEmployeesSuccess({ employees: data as Employee[]}))
+          map(data => EmployeeActions.loadEmployeesSuccess({ employees: data as Employee[]})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -30,7 +32,8 @@ export class EmployeeEffects {
       mergeMap(data =>
         this.employeeService.getByTeam(data.teamId)
         .pipe(
-          map(data => EmployeeActions.loadEmployeesSuccess({employees: data as Employee[]}))
+          map(data => EmployeeActions.loadEmployeesSuccess({employees: data as Employee[]})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )

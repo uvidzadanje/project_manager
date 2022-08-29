@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, mergeMap } from "rxjs";
+import { catchError, map, mergeMap, of } from "rxjs";
 import { Responsibility } from "src/app/models/responsibility";
 import { ResponsibilityService } from "src/app/services/responsibility.service";
 import * as ResponsibilityActions from "./responsibility.action";
+import * as ErrorActions from "../error/error.action";
 
 @Injectable()
 export class ResponsibilityEffects {
@@ -18,7 +19,8 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.getByEmployee(data.id, data.token)
         .pipe(
-          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]}))
+          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -30,7 +32,8 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.getByProjectAndTeam(data)
         .pipe(
-          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]}))
+          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -42,7 +45,8 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.add(data)
         .pipe(
-          map(data => ResponsibilityActions.addResponsibilitySuccess({responsibility: data as Responsibility}))
+          map(data => ResponsibilityActions.addResponsibilitySuccess({responsibility: data as Responsibility})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -54,7 +58,8 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.update(data)
         .pipe(
-          map(() => ResponsibilityActions.updateResponsibilitySuccess({...data}))
+          map(() => ResponsibilityActions.updateResponsibilitySuccess({...data})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -66,7 +71,8 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.delete(data)
         .pipe(
-          map(() => ResponsibilityActions.deleteResponsibilitySuccess({...data}))
+          map(() => ResponsibilityActions.deleteResponsibilitySuccess({...data})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )

@@ -6,6 +6,7 @@ import { Employee } from "src/app/models/employee";
 import { AuthService } from "src/app/services/auth.service";
 import { EmployeeService } from "src/app/services/employee.service";
 import * as AuthActions from "src/app/state/auth/auth.action"
+import * as ErrorActions from "../error/error.action";
 
 @Injectable()
 export class AuthEffects {
@@ -28,7 +29,8 @@ export class AuthEffects {
             return AuthActions.loginSuccess(result)
           }),
           tap(() => this.router.navigate(["/dashboard"])),
-          catchError((response) => of(AuthActions.authError({ error: response.error.message})))
+          // catchError((response) => of(AuthActions.authError({ error: response.error.message})))
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -56,7 +58,8 @@ export class AuthEffects {
       mergeMap((data) =>
         this.employeeService.update({id: data.id, changes: data.changes, accessToken: data.accessToken})
         .pipe(
-          map(() => AuthActions.updateEmployeeInfoSuccess({data: data.changes}))
+          map(() => AuthActions.updateEmployeeInfoSuccess({data: data.changes})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )

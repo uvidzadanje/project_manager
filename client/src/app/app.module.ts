@@ -65,6 +65,7 @@ import { ShowResponsibilityComponent } from './components/dashboard/parts/show-r
 import { employeeTypeReducer } from './state/employee-type/employee-type.reducer';
 import { EmployeeTypeEffects } from './state/employee-type/employee-type.effects';
 import { AuthGuard } from './guards/auth.guard';
+import { errorReducer } from './state/error/error.reducer';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { AuthGuard } from './guards/auth.guard';
       projects: projectReducer,
       responsibilites: responsibilityReducer,
       employees: employeeReducer,
-      employeeType: employeeTypeReducer
+      employeeType: employeeTypeReducer,
+      errors: errorReducer
     }),
     EffectsModule.forRoot([
       AuthEffects,

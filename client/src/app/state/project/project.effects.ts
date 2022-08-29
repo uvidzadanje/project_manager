@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, mergeMap } from "rxjs";
+import { catchError, map, mergeMap, of } from "rxjs";
 import { Project } from "src/app/models/project";
 import { ProjectService } from "src/app/services/project.service";
 import * as ProjectActions from "./project.action";
+import * as ErrorActions from "../error/error.action";
 
 @Injectable()
 export class ProjectEffects {
@@ -19,7 +20,8 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.getAll(data.token)
         .pipe(
-          map((data) => ProjectActions.loadProjectsSuccess({projects: data as Project[]}))
+          map((data) => ProjectActions.loadProjectsSuccess({projects: data as Project[]})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -31,7 +33,8 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.add({token: data.token, project: data.project})
         .pipe(
-          map(data => ProjectActions.addProjectSuccess({project: data as Project}))
+          map(data => ProjectActions.addProjectSuccess({project: data as Project})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -43,7 +46,8 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.update({token: data.token, id: data.id, payload: data.data})
         .pipe(
-          map(() => ProjectActions.updateProjectSuccess({id: data.id, changes: data.data}))
+          map(() => ProjectActions.updateProjectSuccess({id: data.id, changes: data.data})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -55,7 +59,8 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.delete({token: data.token, id: data.id})
         .pipe(
-          map(() => ProjectActions.deleteProjectSuccess({id: data.id}))
+          map(() => ProjectActions.deleteProjectSuccess({id: data.id})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -67,7 +72,8 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.removeTeamFromProject(data.projectId, data.teamId, data.token)
         .pipe(
-          map(() => ProjectActions.removeTeamSuccess({teamId: data.teamId, projectId: data.projectId}))
+          map(() => ProjectActions.removeTeamSuccess({teamId: data.teamId, projectId: data.projectId})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )
@@ -79,7 +85,8 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.addTeamToProject(data.projectId, data.teamId, data.token)
         .pipe(
-          map((result) => ProjectActions.addTeamToProjectSuccess({team: (result as Project).teams?.find(team => team.id === data.teamId)!, projectId: data.projectId}))
+          map((result) => ProjectActions.addTeamToProjectSuccess({team: (result as Project).teams?.find(team => team.id === data.teamId)!, projectId: data.projectId})),
+          catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
     )

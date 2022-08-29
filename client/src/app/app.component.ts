@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { AppState } from './app.state';
 import { getAuthInfo } from './state/auth/auth.action';
+import { selectErrors } from './state/error/error.selector';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,11 @@ export class AppComponent {
       if(!token) return;
 
       this.store.dispatch(getAuthInfo({accessToken: token}))
+    })
+
+    this.store.select(selectErrors).subscribe(errors => {
+      if(!errors.length) return;
+      alert(errors.join("\n"));
     })
   }
 }
