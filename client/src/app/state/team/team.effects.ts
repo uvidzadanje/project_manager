@@ -20,7 +20,7 @@ export class TeamEffects {
       mergeMap((data) =>
         this.teamService.getAll(data.token)
         .pipe(
-          map((data) => TeamActions.loadTeamsSusscess({teams: data as Team[]})),
+          map((data) => TeamActions.loadTeamsSusscess({teams: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -34,7 +34,7 @@ export class TeamEffects {
         this.teamService.getOne(data.id, data.token)
         .pipe(
           map((response) => {
-            const {id, ...changes} = response as Team;
+            const {id, ...changes} = response;
             return TeamActions.updateTeamSuccess({id, changes})
           }),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
@@ -49,7 +49,7 @@ export class TeamEffects {
       mergeMap((data) =>
         this.teamService.add({token: data.token, team: data.team})
         .pipe(
-          map(data => TeamActions.addTeamSuccess({team: data as Team})),
+          map(data => TeamActions.addTeamSuccess({team: {...data, employees: []}})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )

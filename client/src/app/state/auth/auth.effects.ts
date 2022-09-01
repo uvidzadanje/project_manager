@@ -24,12 +24,13 @@ export class AuthEffects {
         this.authService.login(data.payload)
         .pipe(
           map((data) => {
-            const result = data as {access_token: string, employee: Employee};
-            localStorage.setItem("token", result.access_token);
-            return AuthActions.loginSuccess(result)
+            // const result = data as {access_token: string, employee: Employee};
+            // localStorage.setItem("token", result.access_token);
+            // return AuthActions.loginSuccess(result)
+            localStorage.setItem("token", data.access_token);
+            return AuthActions.loginSuccess(data)
           }),
           tap(() => this.router.navigate(["/dashboard"])),
-          // catchError((response) => of(AuthActions.authError({ error: response.error.message})))
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -42,7 +43,7 @@ export class AuthEffects {
       mergeMap((data) =>
         this.authService.getAuthInfoByToken(data.accessToken)
         .pipe(
-          map((value) => AuthActions.getAuthInfoSuccess({accessToken: data.accessToken, employee: value as Employee})),
+          map((value) => AuthActions.getAuthInfoSuccess({accessToken: data.accessToken, employee: value})),
           catchError(() => {
             this.router.navigate(["/login"]);
             return of(AuthActions.logout());
@@ -56,7 +57,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.updateEmployeeInfo),
       mergeMap((data) =>
-        this.employeeService.update({id: data.id, changes: data.changes, accessToken: data.accessToken})
+        this.employeeService.update(data)
         .pipe(
           map(() => AuthActions.updateEmployeeInfoSuccess({data: data.changes})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))

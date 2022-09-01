@@ -4,13 +4,14 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
+import { SPECIAL_PERMISSION_TYPES } from 'src/auth/types.config';
 
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles("admin", "project manager")
+  @Roles(SPECIAL_PERMISSION_TYPES.ADMIN_TYPE, SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Get()
   findAll() {
     return this.employeeService.findAll();

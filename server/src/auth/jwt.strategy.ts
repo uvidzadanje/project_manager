@@ -7,7 +7,7 @@ import { JWT_SECRET_KEY } from "./jwt.config";
 
 @Injectable()
 export class JwtStategy extends PassportStrategy(Strategy) {
-    constructor(private authService: AuthService) {
+    constructor() {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,

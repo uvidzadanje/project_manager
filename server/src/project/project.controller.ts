@@ -6,6 +6,7 @@ import { ProjectTeamRelationDto } from './dto/project-team-relation.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
+import { SPECIAL_PERMISSION_TYPES } from 'src/auth/types.config';
 
 
 @Controller('project')
@@ -13,14 +14,14 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
   
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('project manager')
+  @Roles(SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Post()
   create(@Body() createProjectDto: CreateProjectDto) {
     return this.projectService.create(createProjectDto);
   }
   
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('project manager')
+  @Roles(SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Get()
   findAll() {
     return this.projectService.findAll();
@@ -32,7 +33,7 @@ export class ProjectController {
   }
   
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('project manager')
+  @Roles(SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Patch('team')
   addTeamToProject(@Body() relation: ProjectTeamRelationDto)
   {
@@ -40,14 +41,14 @@ export class ProjectController {
   }
   
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('project manager')
+  @Roles(SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectService.update(+id, updateProjectDto);
   }
   
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('project manager')
+  @Roles(SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Delete(':id/team/:team_id')
   removeTeamFromProject(@Param('id') id: number, @Param('team_id') team_id: number)
   {
@@ -60,7 +61,7 @@ export class ProjectController {
   }
   
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('project manager')
+  @Roles(SPECIAL_PERMISSION_TYPES.PROJECT_MANAGER_TYPE)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.projectService.remove(+id);

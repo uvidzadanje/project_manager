@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CreateProjectDto, UpdateProjectDto } from '../dto/project/project.dto';
 import { getAuthorizationHeader } from '../helper/header.helper';
+import { Project } from '../models/project';
 
 const BASE_API_URL = environment.api_url+"/project";
 
@@ -17,17 +18,17 @@ export class ProjectService {
 
   getAll(token: string)
   {
-    return this.httpClient.get(BASE_API_URL, getAuthorizationHeader(token))
+    return this.httpClient.get<Project[]>(BASE_API_URL, getAuthorizationHeader(token))
   }
 
   getOne(id: number, token: string)
   {
-    return this.httpClient.get(`${BASE_API_URL}/${id}`, getAuthorizationHeader(token))
+    return this.httpClient.get<Project>(`${BASE_API_URL}/${id}`, getAuthorizationHeader(token))
   }
 
   add(data: {token: string, project: CreateProjectDto})
   {
-    return this.httpClient.post(BASE_API_URL, data.project, getAuthorizationHeader(data.token))
+    return this.httpClient.post<Project>(BASE_API_URL, data.project, getAuthorizationHeader(data.token))
   }
 
   update(data: {token: string, id: number, payload: UpdateProjectDto})
@@ -47,6 +48,6 @@ export class ProjectService {
 
   addTeamToProject(projectId: number, teamId: number, token: string)
   {
-    return this.httpClient.patch(`${BASE_API_URL}/team`, {project_id: projectId, team_id: teamId}, getAuthorizationHeader(token))
+    return this.httpClient.patch<Project>(`${BASE_API_URL}/team`, {project_id: projectId, team_id: teamId}, getAuthorizationHeader(token))
   }
 }

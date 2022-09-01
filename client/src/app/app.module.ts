@@ -33,8 +33,6 @@ import { AuthEffects } from './state/auth/auth.effects';
 import { AppState } from './app.state';
 import { authReducer } from './state/auth/auth.reducer';
 import { MainDashboardComponent } from './components/dashboard/main-dashboard/main-dashboard.component';
-import { ManagerDashboardComponent } from './components/dashboard/manager-dashboard/manager-dashboard.component';
-import { EmployeeDashboardComponent } from './components/dashboard/employee-dashboard/employee-dashboard.component';
 import { DashboardManagerSidenavComponent } from './components/dashboard/parts/dashboard-manager-sidenav/dashboard-manager-sidenav.component';
 import { DashboardManagerNavbarComponent } from './components/dashboard/parts/dashboard-manager-navbar/dashboard-manager-navbar.component';
 import { ProjectsDashboardComponent } from './components/dashboard/projects-dashboard/projects-dashboard.component';
@@ -66,6 +64,7 @@ import { employeeTypeReducer } from './state/employee-type/employee-type.reducer
 import { EmployeeTypeEffects } from './state/employee-type/employee-type.effects';
 import { AuthGuard } from './guards/auth.guard';
 import { errorReducer } from './state/error/error.reducer';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -75,8 +74,6 @@ import { errorReducer } from './state/error/error.reducer';
     FooterComponent,
     RegisterComponent,
     MainDashboardComponent,
-    ManagerDashboardComponent,
-    EmployeeDashboardComponent,
     DashboardManagerSidenavComponent,
     DashboardManagerNavbarComponent,
     ProjectsDashboardComponent,
@@ -95,7 +92,8 @@ import { errorReducer } from './state/error/error.reducer';
     AddEmployeeToTeamComponent,
     ShowResponsibilitiesComponent,
     AddResponsibilityComponent,
-    ShowResponsibilityComponent
+    ShowResponsibilityComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,6 @@ export class TeamAdditionalInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("ccccccc");
     this.store.select(selectAuthToken).subscribe(data => this.token = data);
     this.store.dispatch(loadMoreInfoForTeam({id: this.id, token: this.token}));
     this.teamInfo$ = this.store.select(loadedTeam);

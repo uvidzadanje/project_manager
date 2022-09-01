@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { take } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { Employee } from 'src/app/models/employee';
 import { selectAuthToken } from 'src/app/state/auth/auth.selector';
@@ -24,7 +25,7 @@ export class AddEmployeeToTeamComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.select(selectAuthToken).subscribe(data => this.store.dispatch(loadEmployees({token: data})))
+    this.store.select(selectAuthToken).pipe(take(1)).subscribe(data => this.store.dispatch(loadEmployees({token: data})))
     this.store.select(selectEmployees).subscribe(data => this.employees = data.filter(employee => this.employeeIds.every(id => id !== employee.id)));
   }
 

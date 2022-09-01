@@ -20,7 +20,7 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.getAll(data.token)
         .pipe(
-          map((data) => ProjectActions.loadProjectsSuccess({projects: data as Project[]})),
+          map((data) => ProjectActions.loadProjectsSuccess({projects: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -33,7 +33,7 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.add({token: data.token, project: data.project})
         .pipe(
-          map(data => ProjectActions.addProjectSuccess({project: data as Project})),
+          map(data => ProjectActions.addProjectSuccess({project: {...data, teams: []}})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -85,7 +85,7 @@ export class ProjectEffects {
       mergeMap((data) =>
         this.projectService.addTeamToProject(data.projectId, data.teamId, data.token)
         .pipe(
-          map((result) => ProjectActions.addTeamToProjectSuccess({team: (result as Project).teams?.find(team => team.id === data.teamId)!, projectId: data.projectId})),
+          map((result) => ProjectActions.addTeamToProjectSuccess({team: result.teams?.find(team => team.id === data.teamId)!, projectId: data.projectId})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )

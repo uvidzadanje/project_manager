@@ -8,5 +8,5 @@ export const errorFeature = createSelector(
 
 export const selectErrors = createSelector(
   errorFeature,
-  (errors) => errors.ids.map(id => errors.entities[id]).filter(error => !!error).map(error => <string>error)
+  (errors) => errors.errors
 )

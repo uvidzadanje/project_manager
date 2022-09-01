@@ -19,7 +19,7 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.getByEmployee(data.id, data.token)
         .pipe(
-          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]})),
+          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -32,7 +32,7 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.getByProjectAndTeam(data)
         .pipe(
-          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data as Responsibility[]})),
+          map(data => ResponsibilityActions.loadResponsibilitySuccess({responsibilities: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -45,7 +45,7 @@ export class ResponsibilityEffects {
       mergeMap(data =>
         this.responsibilityService.add(data)
         .pipe(
-          map(data => ResponsibilityActions.addResponsibilitySuccess({responsibility: data as Responsibility})),
+          map(data => ResponsibilityActions.addResponsibilitySuccess({responsibility: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )

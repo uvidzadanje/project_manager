@@ -19,7 +19,7 @@ export class EmployeeTypeEffects {
       mergeMap(() =>
         this.employeeTypeService.getAll()
         .pipe(
-          map(data => EmployeeTypeActions.loadEmployeeTypesSuccess({employeeTypes: data as EmployeeType[]})),
+          map(data => EmployeeTypeActions.loadEmployeeTypesSuccess({employeeTypes: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )

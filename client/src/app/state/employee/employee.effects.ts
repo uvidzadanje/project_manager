@@ -19,7 +19,7 @@ export class EmployeeEffects {
       mergeMap(data =>
         this.employeeService.getAll(data.token)
         .pipe(
-          map(data => EmployeeActions.loadEmployeesSuccess({ employees: data as Employee[]})),
+          map(data => EmployeeActions.loadEmployeesSuccess({ employees: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )
@@ -32,7 +32,7 @@ export class EmployeeEffects {
       mergeMap(data =>
         this.employeeService.getByTeam(data.teamId)
         .pipe(
-          map(data => EmployeeActions.loadEmployeesSuccess({employees: data as Employee[]})),
+          map(data => EmployeeActions.loadEmployeesSuccess({employees: data})),
           catchError(response => of(ErrorActions.loadErrors({errors: Array.isArray(response.error.message)? response.error.message: [response.error.message]})))
         )
       )

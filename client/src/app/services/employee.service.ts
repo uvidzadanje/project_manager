@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UpdateEmployeeDto } from '../dto/employee/employee.dto';
 import { getAuthorizationHeader } from '../helper/header.helper';
+import { Employee } from '../models/employee';
 
 const BASE_API_URL = environment.api_url+"/employee";
 
@@ -22,16 +23,16 @@ export class EmployeeService {
 
   getAll(token: string)
   {
-    return this.httpClient.get(`${BASE_API_URL}`, getAuthorizationHeader(token));
+    return this.httpClient.get<Employee[]>(`${BASE_API_URL}`, getAuthorizationHeader(token));
   }
 
   getOne(id: number, token: string)
   {
-    return this.httpClient.get(`${BASE_API_URL}/${id}`, getAuthorizationHeader(token));
+    return this.httpClient.get<Employee>(`${BASE_API_URL}/${id}`, getAuthorizationHeader(token));
   }
 
   getByTeam(id: number)
   {
-    return this.httpClient.get(`${BASE_API_URL}/team/${id}`);
+    return this.httpClient.get<Employee[]>(`${BASE_API_URL}/team/${id}`);
   }
 }

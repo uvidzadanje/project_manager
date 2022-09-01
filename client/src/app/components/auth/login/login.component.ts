@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private router: Router
   ) { }
 
   ngOnInit(): void {

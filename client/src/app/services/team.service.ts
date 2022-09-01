@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CreateTeamDto, UpdateTeamDto } from '../dto/team/team.dto';
 import { getAuthorizationHeader } from '../helper/header.helper';
+import { Team } from '../models/team';
 
 const BASE_API_URL = `${environment.api_url}/team`;
 
@@ -17,18 +18,18 @@ export class TeamService {
 
   getAll(token: string)
   {
-    return this.httpClient.get(BASE_API_URL, getAuthorizationHeader(token));
+    return this.httpClient.get<Team[]>(BASE_API_URL, getAuthorizationHeader(token));
   }
 
   getOne(id: number, token: string)
   {
-    return this.httpClient.get(`${BASE_API_URL}/${id}`, getAuthorizationHeader(token))
+    return this.httpClient.get<Team>(`${BASE_API_URL}/${id}`, getAuthorizationHeader(token))
   }
 
   add(data: {token: string, team: CreateTeamDto})
   {
     const {team, token} = data;
-    return this.httpClient.post(BASE_API_URL, team, getAuthorizationHeader(token))
+    return this.httpClient.post<Team>(BASE_API_URL, team, getAuthorizationHeader(token))
   }
 
   update(data: {token: string, team: UpdateTeamDto, id: number})

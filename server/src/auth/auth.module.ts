@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStategy } from './jwt.strategy';
 import { LocalStategy } from './local.strategy';
-import { JWT_SECRET_KEY } from './jwt.config';
+import { JWT_EXPIRES_IN, JWT_SECRET_KEY } from './jwt.config';
 import { EmployeeModule } from 'src/employee/employee.module';
 
 @Module({
@@ -14,7 +14,7 @@ import { EmployeeModule } from 'src/employee/employee.module';
     PassportModule,
     JwtModule.register({
       secret: JWT_SECRET_KEY,
-      signOptions: { expiresIn: "1h" }
+      signOptions: { expiresIn: JWT_EXPIRES_IN }
     })
   ],
   providers: [AuthService, JwtStategy, LocalStategy],
